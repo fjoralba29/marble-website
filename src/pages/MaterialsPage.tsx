@@ -1,0 +1,250 @@
+import { Filter, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabase';
+import { Material } from '../types';
+
+interface MaterialsPageProps {
+  onNavigate: (page: string, data?: unknown) => void;
+}
+
+export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
+  const [materials, setMaterials] = useState<Material[]>([]);
+  const [filteredMaterials, setFilteredMaterials] = useState<Material[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<string>('name');
+  const [showFilters, setShowFilters] = useState(false);
+
+  const colors = ['all', 'white', 'black', 'gray', 'beige', 'brown', 'green', 'blue', 'red'];
+
+  useEffect(() => {
+    loadMaterials();
+  }, []);
+
+  useEffect(() => {
+    filterAndSortMaterials();
+  }, [materials, selectedColor, sortBy]);
+
+  const loadMaterials = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('materials')
+        .select('*');
+
+      if (error) throw error;
+      setMaterials(data || []);
+    } catch (error) {
+      console.error('Error loading materials:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filterAndSortMaterials = () => {
+    let filtered = [...materials];
+
+    if (selectedColor !== 'all') {
+      filtered = filtered.filter(m =>
+        m.color.toLowerCase().includes(selectedColor.toLowerCase())
+      );
+    }
+
+    filtered.sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === 'name-desc') {
+        return b.name.localeCompare(a.name);
+      }
+      return 0;
+    });
+
+    setFilteredMaterials(filtered);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="bg-gray-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Premium Materials
+          </h1>
+          <p className="text-xl text-gray-300">
+            Discover our extensive collection of marble and natural stone
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+          <div className="text-gray-600">
+            Showing {filteredMaterials.length} materials
+          </div>
+
+          <div className="flex flex-wrap gap-4">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="md:hidden flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              <Filter size={20} />
+              Filters
+            </button>
+
+            <div className="hidden md:flex items-center gap-2">
+              <label className="text-sm font-medium text-gray-700">Color:</label>
+              <select
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              >
+                {colors.map(color => (
+                  <option key={color} value={color}>
+                    {color.charAt(0).toUpperCase() + color.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="hidden md:flex items-center gap-2">
+              <label className="text-sm font-medium text-gray-700">Sort by:</label>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              >
+                <option value="name">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {showFilters && (
+          <div className="md:hidden bg-white p-4 rounded-lg shadow-md mb-6 space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Color</label>
+              <select
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500"
+              >
+                {colors.map(color => (
+                  <option key={color} value={color}>
+                    {color.charAt(0).toUpperCase() + color.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Sort by</label>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500"
+              >
+                <option value="name">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        {loading ? (
+          <div className="text-center py-20">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredMaterials.map((material) => (
+              <div
+                key={material.id}
+                onClick={() => setSelectedMaterial(material)}
+                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-1"
+              >
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={material.image_url}
+                    alt={material.name}
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg mb-1">{material.name}</h3>
+                  <p className="text-sm text-gray-500 capitalize">{material.color}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {!loading && filteredMaterials.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-gray-500 text-lg">No materials found matching your filters.</p>
+          </div>
+        )}
+      </div>
+
+      {selectedMaterial && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
+              <h2 className="text-2xl font-bold">{selectedMaterial.name}</h2>
+              <button
+                onClick={() => setSelectedMaterial(null)}
+                className="p-2 hover:bg-gray-100 rounded-full"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="p-6">
+              <div className="mb-6">
+                <img
+                  src={selectedMaterial.image_url}
+                  alt={selectedMaterial.name}
+                  className="w-full h-96 object-cover rounded-lg"
+                />
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold text-lg mb-2">Description</h3>
+                  <p className="text-gray-700">{selectedMaterial.description}</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-semibold mb-1">Color</h4>
+                    <p className="text-gray-600 capitalize">{selectedMaterial.color}</p>
+                  </div>
+
+                  {selectedMaterial.origin && (
+                    <div>
+                      <h4 className="font-semibold mb-1">Origin</h4>
+                      <p className="text-gray-600">{selectedMaterial.origin}</p>
+                    </div>
+                  )}
+
+                  {selectedMaterial.price_range && (
+                    <div>
+                      <h4 className="font-semibold mb-1">Price Range</h4>
+                      <p className="text-gray-600">{selectedMaterial.price_range}</p>
+                    </div>
+                  )}
+
+                  {selectedMaterial.finish_types && selectedMaterial.finish_types.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold mb-1">Available Finishes</h4>
+                      <p className="text-gray-600">{selectedMaterial.finish_types.join(', ')}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
