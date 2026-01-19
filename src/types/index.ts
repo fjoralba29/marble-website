@@ -2,6 +2,7 @@ export interface Material {
   id: string;
   name: string;
   description: string;
+  category: string;
   color: string;
   image_url: string;
   price_range: string;
