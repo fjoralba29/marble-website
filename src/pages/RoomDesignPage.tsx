@@ -50,115 +50,42 @@ export default function RoomDesignPage() {
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-lg overflow-hidden relative">
                 
-                {/* CONTAINER-I KRYESOR I FOTOS */}
-              <div className="relative w-full aspect-[1100/825] bg-gray-100">
-  {/* SHTRESA 1: Fotoja origjinale */}
-  <img
-    src="/dc4564-004-rt.jpg"
-    alt="Kitchen Base"
-    className="absolute inset-0 w-full h-full object-cover"
-  />
+                <div className="relative w-full aspect-[4/3] bg-gray-200">
+                  {/* Layer 1: Marble texture - Backsplash area (top 30%) */}
+                  {selectedMaterial && (selectedArea === 'backsplash' || selectedArea === 'both') && (
+                    <div
+                      className="absolute inset-0 w-full h-full"
+                      style={{
+                        backgroundImage: `url(${selectedMaterial.image_url})`,
+                        backgroundSize: '400px 400px',
+                        backgroundRepeat: 'repeat',
+                        backgroundPosition: 'center',
+                        clipPath: 'polygon(0% 0%, 100% 0%, 100% 30%, 0% 30%)',
+                      }}
+                    />
+                  )}
 
-  {/* SHTRESA 2: SVG MASKING */}
-  <svg
-    className="absolute inset-0 w-full h-full pointer-events-none"
-    viewBox="0 0 1100 825"
-    preserveAspectRatio="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <defs>
-      {/* 1. Maska e Ishullit (Pjesa e sipërme) */}
-      <clipPath id="mask-island-top">
-        <path d="M545.099 0.502686L0.0986328 84.0027L344.099 153.003L790.599 18.0027L545.099 0.502686Z" />
-      </clipPath>
+                  {/* Layer 2: Marble texture - Countertop area (bottom 70%) */}
+                  {selectedMaterial && (selectedArea === 'countertop' || selectedArea === 'both') && (
+                    <div
+                      className="absolute inset-0 w-full h-full"
+                      style={{
+                        backgroundImage: `url(${selectedMaterial.image_url})`,
+                        backgroundSize: '600px 600px',
+                        backgroundRepeat: 'repeat',
+                        backgroundPosition: 'center',
+                        clipPath: 'polygon(0% 30%, 100% 30%, 100% 100%, 0% 100%)',
+                      }}
+                    />
+                  )}
 
-      {/* 2. Maska e Backsplash (Pjesa prapa) */}
-      <clipPath id="mask-backsplash">
-        <path d="M603 14.5117L0.5 0.511719V126.512L603 90.0117V14.5117Z" />
-      </clipPath>
-
-      {/* 3. Maska e Anësoreve të Ishullit (Bashkimi i 3 path-eve të vogla) */}
-      <clipPath id="mask-island-sides">
-        {/* Path-i i parë anësor */}
-        <path d="M0.5 0.607422V335.607H345.5V68.1074L0.5 0.607422Z" />
-        {/* Path-i i dytë anësor */}
-        <path d="M450 0.673584L0.5 136.674V159.674L450 20.1736V0.673584Z" />
-        {/* Path-i i tretë (shirit i hollë) */}
-        <path d="M33.5 255.164H0.5V10.1643L33.5 0.664307V255.164Z" />
-      </clipPath>
-
-      {/* Patterns për teksturat e mermerit */}
-      {selectedMaterial && (
-        <>
-          <pattern id="marble-pattern-top" x="0" y="0" width="500" height="500" patternUnits="userSpaceOnUse">
-            <image
-              xlinkHref={selectedMaterial.image_url}
-              width="500"
-              height="500"
-              preserveAspectRatio="xMidYMid slice"
-            />
-          </pattern>
-          <pattern id="marble-pattern-sides" x="0" y="0" width="400" height="400" patternUnits="userSpaceOnUse">
-            <image
-              xlinkHref={selectedMaterial.image_url}
-              width="400"
-              height="400"
-              preserveAspectRatio="xMidYMid slice"
-            />
-          </pattern>
-          <pattern id="marble-pattern-backsplash" x="0" y="0" width="300" height="300" patternUnits="userSpaceOnUse">
-            <image
-              xlinkHref={selectedMaterial.image_url}
-              width="300"
-              height="300"
-              preserveAspectRatio="xMidYMid slice"
-            />
-          </pattern>
-        </>
-      )}
-    </defs>
-
-    {selectedMaterial && (
-      <g style={{ mixBlendMode: 'multiply', opacity: 0.95 }}>
-        {/* Vendosja e mermerit te Ishulli (Sipër) */}
-        {(selectedArea === 'countertop' || selectedArea === 'both') && (
-          <rect
-            x="0"
-            y="0"
-            width="1100"
-            height="825"
-            fill="url(#marble-pattern-top)"
-            clipPath="url(#mask-island-top)"
-          />
-        )}
-
-        {/* Vendosja e mermerit te Ishulli (Anash) */}
-        {(selectedArea === 'countertop' || selectedArea === 'both') && (
-          <rect
-            x="0"
-            y="0"
-            width="1100"
-            height="825"
-            fill="url(#marble-pattern-sides)"
-            clipPath="url(#mask-island-sides)"
-          />
-        )}
-
-        {/* Vendosja e mermerit te Backsplash */}
-        {(selectedArea === 'backsplash' || selectedArea === 'both') && (
-          <rect
-            x="0"
-            y="0"
-            width="1100"
-            height="825"
-            fill="url(#marble-pattern-backsplash)"
-            clipPath="url(#mask-backsplash)"
-          />
-        )}
-      </g>
-    )}
-  </svg>
-</div>
+                  {/* Layer 3: Kitchen image with transparency (PNG mask) */}
+                  <img
+                    src="/dc4564-004-rt_1 copy.png"
+                    alt="Kitchen"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
 
                 {/* Kontrollet e zonave */}
                 <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-lg">
