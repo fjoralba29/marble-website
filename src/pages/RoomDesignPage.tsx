@@ -54,57 +54,51 @@ export default function RoomDesignPage() {
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div className="relative">
-                  <div className="relative w-full aspect-[4/3] overflow-hidden">
+                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
                     <img
                       src="/dc4564-004-rt.jpg"
                       alt="Kitchen"
                       className="w-full h-full object-cover"
                     />
 
-                    {(selectedArea === 'backsplash' || selectedArea === 'both') && selectedMaterial && (
+                    {selectedMaterial && (selectedArea === 'countertop' || selectedArea === 'both') && (
                       <div
-                        className="absolute inset-0 opacity-90 mix-blend-multiply"
+                        className="absolute inset-0 opacity-95"
                         style={{
                           backgroundImage: `url(${selectedMaterial.image_url})`,
-                          backgroundSize: '400px 400px',
+                          backgroundSize: '600px 600px',
                           backgroundRepeat: 'repeat',
-                          clipPath: 'polygon(2% 23.5%, 98% 23.5%, 98% 33%, 2% 33%)',
+                          backgroundPosition: 'center',
+                          maskImage: 'url(/dc4564-004-rt_1.png)',
+                          maskSize: 'cover',
+                          maskPosition: 'center',
+                          WebkitMaskImage: 'url(/dc4564-004-rt_1.png)',
+                          WebkitMaskSize: 'cover',
+                          WebkitMaskPosition: 'center',
+                          mixBlendMode: 'multiply',
+                          clipPath: selectedArea === 'both' ? 'none' : 'polygon(0% 40%, 100% 40%, 100% 100%, 0% 100%)',
                         }}
                       />
                     )}
 
-                    {(selectedArea === 'countertop' || selectedArea === 'both') && selectedMaterial && (
-                      <>
-                        <div
-                          className="absolute inset-0 opacity-90 mix-blend-multiply"
-                          style={{
-                            backgroundImage: `url(${selectedMaterial.image_url})`,
-                            backgroundSize: '500px 500px',
-                            backgroundRepeat: 'repeat',
-                            clipPath: 'polygon(20% 64%, 85% 64%, 95% 75%, 95% 100%, 5% 100%, 5% 75%)',
-                          }}
-                        />
-
-                        <div
-                          className="absolute inset-0 opacity-90 mix-blend-multiply"
-                          style={{
-                            backgroundImage: `url(${selectedMaterial.image_url})`,
-                            backgroundSize: '300px 300px',
-                            backgroundRepeat: 'repeat',
-                            clipPath: 'polygon(5% 75%, 20% 64%, 20% 100%, 5% 100%)',
-                          }}
-                        />
-
-                        <div
-                          className="absolute inset-0 opacity-90 mix-blend-multiply"
-                          style={{
-                            backgroundImage: `url(${selectedMaterial.image_url})`,
-                            backgroundSize: '300px 300px',
-                            backgroundRepeat: 'repeat',
-                            clipPath: 'polygon(85% 64%, 95% 75%, 95% 100%, 85% 100%)',
-                          }}
-                        />
-                      </>
+                    {selectedMaterial && selectedArea === 'backsplash' && (
+                      <div
+                        className="absolute inset-0 opacity-95"
+                        style={{
+                          backgroundImage: `url(${selectedMaterial.image_url})`,
+                          backgroundSize: '400px 400px',
+                          backgroundRepeat: 'repeat',
+                          backgroundPosition: 'center',
+                          maskImage: 'url(/dc4564-004-rt_1.png)',
+                          maskSize: 'cover',
+                          maskPosition: 'center',
+                          WebkitMaskImage: 'url(/dc4564-004-rt_1.png)',
+                          WebkitMaskSize: 'cover',
+                          WebkitMaskPosition: 'center',
+                          mixBlendMode: 'multiply',
+                          clipPath: 'polygon(0% 0%, 100% 0%, 100% 40%, 0% 40%)',
+                        }}
+                      />
                     )}
                   </div>
 
