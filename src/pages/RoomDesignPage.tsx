@@ -5,7 +5,7 @@ import { Material } from '../types';
 export default function RoomDesignPage() {
   const [materials, setMaterials] = useState<Material[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedArea, setSelectedArea] = useState<'island' | 'backsplash'>('island');
+  const [selectedArea, setSelectedArea] = useState<'island' | 'backsplash' | 'both'>('both');
   const [islandMaterial, setIslandMaterial] = useState<Material | null>(null);
   const [backsplashMaterial, setBacksplashMaterial] = useState<Material | null>(null);
 
@@ -53,40 +53,43 @@ export default function RoomDesignPage() {
               <div className="bg-white rounded-lg shadow-lg overflow-hidden relative">
                 
                 <div className="relative w-full aspect-[4/3] bg-gray-200">
-                  {/* Layer 1: Marble texture - Backsplash area */}
+                  {/* Base layer: Kitchen image with transparency (PNG mask) */}
+                  <img
+                    src="/dc4564-004-rt_1 copy.png"
+                    alt="Kitchen"
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                    style={{ zIndex: 30 }}
+                  />
+
+                  {/* Marble layer 1: Backsplash area - behind the PNG mask */}
                   {backsplashMaterial && (
                     <div
-                      className="absolute inset-0 w-full h-full"
+                      className="absolute inset-0 w-full h-full pointer-events-none"
                       style={{
                         backgroundImage: `url(${backsplashMaterial.image_url})`,
                         backgroundSize: '400px 400px',
                         backgroundRepeat: 'repeat',
                         backgroundPosition: 'center',
                         clipPath: 'polygon(0% 0%, 100% 0%, 100% 30%, 0% 30%)',
+                        zIndex: 10,
                       }}
                     />
                   )}
 
-                  {/* Layer 2: Marble texture - Island area */}
+                  {/* Marble layer 2: Island area - behind the PNG mask */}
                   {islandMaterial && (
                     <div
-                      className="absolute inset-0 w-full h-full"
+                      className="absolute inset-0 w-full h-full pointer-events-none"
                       style={{
                         backgroundImage: `url(${islandMaterial.image_url})`,
                         backgroundSize: '600px 600px',
                         backgroundRepeat: 'repeat',
                         backgroundPosition: 'center',
                         clipPath: 'polygon(0% 30%, 100% 30%, 100% 100%, 0% 100%)',
+                        zIndex: 20,
                       }}
                     />
                   )}
-
-                  {/* Layer 3: Kitchen image with transparency (PNG mask) */}
-                  <img
-                    src="/dc4564-004-rt_1 copy.png"
-                    alt="Kitchen"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
                 </div>
 
                 <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-lg">
@@ -113,6 +116,17 @@ export default function RoomDesignPage() {
                           className="text-orange-600 focus:ring-orange-500"
                         />
                         <span className="text-sm">Backsplash</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="area"
+                          value="both"
+                          checked={selectedArea === 'both'}
+                          onChange={(e) => setSelectedArea(e.target.value as 'both')}
+                          className="text-orange-600 focus:ring-orange-500"
+                        />
+                        <span className="text-sm">Both</span>
                       </label>
                    </div>
                 </div>
@@ -160,19 +174,29 @@ export default function RoomDesignPage() {
               <div className="bg-white rounded-lg shadow-lg p-6 sticky top-4">
                 <h2 className="text-xl font-bold mb-2">Select Material</h2>
                 <p className="text-sm text-gray-500 mb-4">
-                  Choose material for: <span className="font-semibold text-orange-600">{selectedArea}</span>
+                  Choose material for: <span className="font-semibold text-orange-600 capitalize">{selectedArea}</span>
                 </p>
                 <div className="space-y-3 overflow-y-auto max-h-[70vh]">
                   {materials.map((material) => {
-                    const currentMaterial = selectedArea === 'island' ? islandMaterial : backsplashMaterial;
-                    const isSelected = currentMaterial?.id === material.id;
+                    let isSelected = false;
+                    if (selectedArea === 'island') {
+                      isSelected = islandMaterial?.id === material.id;
+                    } else if (selectedArea === 'backsplash') {
+                      isSelected = backsplashMaterial?.id === material.id;
+                    } else {
+                      isSelected = islandMaterial?.id === material.id && backsplashMaterial?.id === material.id;
+                    }
+
                     return (
                       <div
                         key={material.id}
                         onClick={() => {
                           if (selectedArea === 'island') {
                             setIslandMaterial(material);
+                          } else if (selectedArea === 'backsplash') {
+                            setBacksplashMaterial(material);
                           } else {
+                            setIslandMaterial(material);
                             setBacksplashMaterial(material);
                           }
                         }}
@@ -203,7 +227,7 @@ export default function RoomDesignPage() {
               </div>
               <h3 className="font-semibold mb-2">Select Area</h3>
               <p className="text-sm text-gray-600">
-                Choose whether to edit the island or backsplash
+                Choose island, backsplash, or both areas to edit
               </p>
             </div>
             <div className="text-center">
