@@ -23,7 +23,6 @@ export default function RoomDesignPage() {
       if (error) throw error;
       if (data && data.length > 0) {
         setMaterials(data);
-        // Default selections
         setIslandMaterial(data[0]);
         setBacksplashMaterial(data[1] || data[0]);
       }
@@ -36,85 +35,79 @@ export default function RoomDesignPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Kitchen Visualizer</h1>
-          <p className="text-xl text-gray-300">Mix and match premium marble for your island and backsplash</p>
+      <div className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h1 className="text-4xl font-bold mb-2">Kitchen Visualizer</h1>
+          <p className="text-gray-400">Select materials to customize your kitchen island and backsplash</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-12">
         {loading ? (
-          <div className="text-center py-20">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
+          <div className="flex justify-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            {/* LEFT: Visualizer Display */}
+            {/* LEFT: VISUALIZER */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-xl shadow-2xl overflow-hidden relative">
-                
-                {/* The Visualizer Container */}
-                <div className="relative w-full aspect-[4/3] bg-gray-200 overflow-hidden">
+                <div className="relative w-full aspect-[4/3] bg-gray-200">
                   
-                  {/* LAYER 1: Backsplash Marble (Lowest Z-Index) */}
+                  {/* 1. Backsplash Marble Layer (Bottom Layer) */}
                   {backsplashMaterial && (
                     <div
-                      className="absolute inset-0 w-full h-full transition-all duration-700 ease-in-out"
+                      className="absolute inset-0 w-full h-full transition-all duration-500"
                       style={{
                         backgroundImage: `url(${backsplashMaterial.image_url})`,
-                        backgroundSize: '400px auto',
+                        backgroundSize: '300px 300px',
                         backgroundRepeat: 'repeat',
-                        backgroundPosition: 'center',
-                        // Clip-path keeps it in the upper section
-                        clipPath: 'polygon(0% 0%, 100% 0%, 100% 65%, 0% 65%)',
+                        // Precise polygon for the backsplash area in your photo
+                        clipPath: 'polygon(7% 40%, 52% 42%, 52% 53%, 7% 55%)',
                         zIndex: 10,
                       }}
                     />
                   )}
 
-                  {/* LAYER 2: Island Marble (Middle Z-Index) */}
+                  {/* 2. Island Marble Layer (Middle Layer - sits above Backsplash) */}
                   {islandMaterial && (
                     <div
-                      className="absolute inset-0 w-full h-full transition-all duration-700 ease-in-out"
+                      className="absolute inset-0 w-full h-full transition-all duration-500"
                       style={{
                         backgroundImage: `url(${islandMaterial.image_url})`,
-                        backgroundSize: '600px auto',
+                        backgroundSize: '600px 600px',
                         backgroundRepeat: 'repeat',
-                        backgroundPosition: 'center',
-                        // Clip-path keeps it in the lower section
-                        clipPath: 'polygon(0% 35%, 100% 35%, 100% 100%, 0% 100%)',
+                        // Precise polygon for the waterfall island in your photo
+                        clipPath: 'polygon(25.5% 64.5%, 93.5% 56.5%, 96.5% 58%, 91.5% 91%, 58% 100%, 26% 100%)',
                         zIndex: 20,
                       }}
                     />
                   )}
 
-                  {/* LAYER 3: The Kitchen Mask (Highest Z-Index) */}
-                  {/* This image must have transparent cutouts for the marble to show through */}
+                  {/* 3. Kitchen Mask Layer (Top Layer) */}
                   <img
                     src="/dc4564-004-rt_1 copy.png"
-                    alt="Kitchen Overlay"
+                    alt="Kitchen"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     style={{ zIndex: 30 }}
                   />
-                  
-                  {/* Floating Selection Control */}
-                  <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md p-5 rounded-xl shadow-xl z-40 border border-gray-100">
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Target Area</p>
-                    <div className="flex flex-col gap-3">
-                      {(['island', 'backsplash', 'both'] as const).map((area) => (
-                        <label key={area} className="flex items-center gap-3 cursor-pointer group">
+
+                  {/* Area Selector Overlay */}
+                  <div className="absolute top-4 right-4 z-40 bg-white/90 backdrop-blur p-4 rounded-lg shadow-lg border border-gray-200">
+                    <p className="text-xs font-bold uppercase text-gray-500 mb-3">Target Area</p>
+                    <div className="flex flex-col gap-2">
+                      {['island', 'backsplash', 'both'].map((area) => (
+                        <label key={area} className="flex items-center gap-2 cursor-pointer group">
                           <input
                             type="radio"
                             name="area"
                             value={area}
                             checked={selectedArea === area}
                             onChange={(e) => setSelectedArea(e.target.value as any)}
-                            className="w-4 h-4 text-orange-600 focus:ring-orange-500 border-gray-300"
+                            className="text-orange-600 focus:ring-orange-500"
                           />
-                          <span className={`text-sm font-medium capitalize ${selectedArea === area ? 'text-orange-600' : 'text-gray-700 group-hover:text-orange-500'}`}>
+                          <span className="text-sm capitalize font-medium group-hover:text-orange-600 transition-colors">
                             {area}
                           </span>
                         </label>
@@ -123,34 +116,25 @@ export default function RoomDesignPage() {
                   </div>
                 </div>
 
-                {/* Material Details Footer */}
-                <div className="grid grid-cols-2 divide-x border-t">
-                  <div className="p-4 bg-gray-50/50">
-                    <p className="text-[10px] uppercase font-bold text-gray-400 mb-1">Island</p>
-                    <p className="font-semibold text-gray-800">{islandMaterial?.name}</p>
-                  </div>
-                  <div className="p-4 bg-gray-50/50">
-                    <p className="text-[10px] uppercase font-bold text-gray-400 mb-1">Backsplash</p>
-                    <p className="font-semibold text-gray-800">{backsplashMaterial?.name}</p>
-                  </div>
+                {/* Status Bar */}
+                <div className="p-4 bg-gray-50 border-t flex justify-around text-sm">
+                  <div><span className="text-gray-400">Island:</span> <strong>{islandMaterial?.name}</strong></div>
+                  <div><span className="text-gray-400">Backsplash:</span> <strong>{backsplashMaterial?.name}</strong></div>
                 </div>
               </div>
             </div>
 
-            {/* RIGHT: Material Selection Sidebar */}
+            {/* RIGHT: MATERIAL SELECTION */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 sticky top-8">
-                <div className="mb-6">
-                  <h2 className="text-xl font-bold text-gray-900">Choose Marble</h2>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Applying to: <span className="text-orange-600 font-bold capitalize">{selectedArea}</span>
-                  </p>
-                </div>
-
-                <div className="space-y-3 overflow-y-auto max-h-[60vh] pr-2 custom-scrollbar">
+              <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 sticky top-4">
+                <h2 className="text-xl font-bold mb-1">Select Material</h2>
+                <p className="text-sm text-gray-500 mb-6">
+                  Applying to <span className="text-orange-600 font-bold capitalize">{selectedArea}</span>
+                </p>
+                
+                <div className="space-y-3 overflow-y-auto max-h-[65vh] pr-2 custom-scrollbar">
                   {materials.map((material) => {
-                    // Check if this material is currently used in the selected area
-                    const isSelected = 
+                    const isActive = 
                       (selectedArea === 'island' && islandMaterial?.id === material.id) ||
                       (selectedArea === 'backsplash' && backsplashMaterial?.id === material.id) ||
                       (selectedArea === 'both' && islandMaterial?.id === material.id && backsplashMaterial?.id === material.id);
@@ -162,19 +146,13 @@ export default function RoomDesignPage() {
                           if (selectedArea === 'island' || selectedArea === 'both') setIslandMaterial(material);
                           if (selectedArea === 'backsplash' || selectedArea === 'both') setBacksplashMaterial(material);
                         }}
-                        className={`w-full flex items-center gap-4 p-3 rounded-xl border-2 transition-all duration-200 ${
-                          isSelected 
-                            ? 'border-orange-500 bg-orange-50 ring-4 ring-orange-50' 
-                            : 'border-gray-100 hover:border-gray-300 bg-white'
+                        className={`w-full flex items-center gap-4 p-2 rounded-lg border-2 transition-all ${
+                          isActive ? 'border-orange-500 bg-orange-50' : 'border-gray-50 hover:border-gray-200'
                         }`}
                       >
-                        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg shadow-sm">
-                          <img src={material.image_url} alt={material.name} className="h-full w-full object-cover" />
-                        </div>
+                        <img src={material.image_url} className="w-16 h-16 object-cover rounded-md shadow-sm" />
                         <div className="text-left">
-                          <p className={`font-bold text-sm ${isSelected ? 'text-orange-900' : 'text-gray-900'}`}>
-                            {material.name}
-                          </p>
+                          <p className="font-bold text-sm leading-tight">{material.name}</p>
                           <p className="text-xs text-gray-500 capitalize">{material.color}</p>
                         </div>
                       </button>
@@ -183,7 +161,6 @@ export default function RoomDesignPage() {
                 </div>
               </div>
             </div>
-
           </div>
         )}
       </div>
