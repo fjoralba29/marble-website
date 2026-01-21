@@ -54,52 +54,61 @@ export default function RoomDesignPage() {
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div className="relative">
-                  <div className="h-[500px] bg-gray-200 relative overflow-hidden">
-                    <svg viewBox="0 0 800 500" className="w-full h-full">
-                      <rect x="0" y="0" width="800" height="500" fill="#f5f5f5" />
+                  <div className="relative w-full aspect-[4/3] overflow-hidden">
+                    <img
+                      src="/dc4564-004-rt.jpg"
+                      alt="Kitchen"
+                      className="w-full h-full object-cover"
+                    />
 
-                      <rect x="50" y="200" width="700" height="150" fill="#8B7355" />
-                      <rect x="50" y="220" width="700" height="10" fill="#6B5345" />
+                    {(selectedArea === 'backsplash' || selectedArea === 'both') && selectedMaterial && (
+                      <div
+                        className="absolute inset-0 opacity-90 mix-blend-multiply"
+                        style={{
+                          backgroundImage: `url(${selectedMaterial.image_url})`,
+                          backgroundSize: '400px 400px',
+                          backgroundRepeat: 'repeat',
+                          clipPath: 'polygon(2% 23.5%, 98% 23.5%, 98% 33%, 2% 33%)',
+                        }}
+                      />
+                    )}
 
-                      {(selectedArea === 'countertop' || selectedArea === 'both') && selectedMaterial && (
-                        <>
-                          <defs>
-                            <pattern id="countertopPattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-                              <image href={selectedMaterial.image_url} x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice" />
-                            </pattern>
-                          </defs>
-                          <rect x="50" y="200" width="700" height="40" fill="url(#countertopPattern)" opacity="0.95" />
-                          <rect x="50" y="200" width="700" height="40" fill="rgba(255,255,255,0.1)" />
-                        </>
-                      )}
+                    {(selectedArea === 'countertop' || selectedArea === 'both') && selectedMaterial && (
+                      <>
+                        <div
+                          className="absolute inset-0 opacity-90 mix-blend-multiply"
+                          style={{
+                            backgroundImage: `url(${selectedMaterial.image_url})`,
+                            backgroundSize: '500px 500px',
+                            backgroundRepeat: 'repeat',
+                            clipPath: 'polygon(20% 64%, 85% 64%, 95% 75%, 95% 100%, 5% 100%, 5% 75%)',
+                          }}
+                        />
 
-                      <rect x="100" y="250" width="150" height="100" fill="#ffffff" stroke="#333" strokeWidth="2" />
-                      <rect x="300" y="250" width="150" height="100" fill="#ffffff" stroke="#333" strokeWidth="2" />
-                      <rect x="500" y="250" width="150" height="100" fill="#ffffff" stroke="#333" strokeWidth="2" />
+                        <div
+                          className="absolute inset-0 opacity-90 mix-blend-multiply"
+                          style={{
+                            backgroundImage: `url(${selectedMaterial.image_url})`,
+                            backgroundSize: '300px 300px',
+                            backgroundRepeat: 'repeat',
+                            clipPath: 'polygon(5% 75%, 20% 64%, 20% 100%, 5% 100%)',
+                          }}
+                        />
 
-                      <rect x="50" y="50" width="700" height="140" fill="#e8e8e8" />
-
-                      {(selectedArea === 'backsplash' || selectedArea === 'both') && selectedMaterial && (
-                        <>
-                          <defs>
-                            <pattern id="backsplashPattern" x="0" y="0" width="150" height="150" patternUnits="userSpaceOnUse">
-                              <image href={selectedMaterial.image_url} x="0" y="0" width="150" height="150" preserveAspectRatio="xMidYMid slice" />
-                            </pattern>
-                          </defs>
-                          <rect x="50" y="50" width="700" height="140" fill="url(#backsplashPattern)" opacity="0.95" />
-                        </>
-                      )}
-
-                      <rect x="350" y="80" width="100" height="80" fill="#4a5568" rx="5" />
-                      <circle cx="400" cy="110" r="8" fill="#718096" />
-                      <circle cx="400" cy="135" r="8" fill="#718096" />
-
-                      <rect x="600" y="260" width="80" height="60" fill="#c0c0c0" stroke="#999" strokeWidth="2" />
-                      <circle cx="670" cy="280" r="3" fill="#666" />
-                    </svg>
+                        <div
+                          className="absolute inset-0 opacity-90 mix-blend-multiply"
+                          style={{
+                            backgroundImage: `url(${selectedMaterial.image_url})`,
+                            backgroundSize: '300px 300px',
+                            backgroundRepeat: 'repeat',
+                            clipPath: 'polygon(85% 64%, 95% 75%, 95% 100%, 85% 100%)',
+                          }}
+                        />
+                      </>
+                    )}
                   </div>
 
-                  <div className="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-4">
+                  <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg p-4">
                     <p className="text-sm font-semibold mb-2">Apply to:</p>
                     <div className="space-y-2">
                       <label className="flex items-center gap-2 cursor-pointer">
@@ -111,7 +120,7 @@ export default function RoomDesignPage() {
                           onChange={(e) => setSelectedArea(e.target.value as 'countertop')}
                           className="text-orange-600 focus:ring-orange-500"
                         />
-                        <span className="text-sm">Countertop</span>
+                        <span className="text-sm">Island</span>
                       </label>
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -210,7 +219,7 @@ export default function RoomDesignPage() {
               </div>
               <h3 className="font-semibold mb-2">Select Area</h3>
               <p className="text-sm text-gray-600">
-                Choose to apply to countertop, backsplash, or both
+                Choose to apply to island, backsplash, or both
               </p>
             </div>
             <div className="text-center">
