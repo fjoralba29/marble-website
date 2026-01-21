@@ -51,71 +51,78 @@ export default function RoomDesignPage() {
               <div className="bg-white rounded-lg shadow-lg overflow-hidden relative">
                 
                 {/* CONTAINER-I KRYESOR I FOTOS */}
-                <div className="relative w-full aspect-[1100/825] bg-gray-100">
-                  
-                  {/* SHTRESA 1: Fotoja origjinale */}
-                  <img
-                    src="/DC4564-004-RT.jpg"
-                    alt="Kitchen Base"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+              <div className="relative w-full aspect-[1100/825] bg-gray-100">
+  {/* SHTRESA 1: Fotoja origjinale */}
+  <img
+    src="/DC4564-004-RT.jpg" 
+    alt="Kitchen Base"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
 
-                  {/* SHTRESA 2: SVG MASKING LAYER */}
-                  <svg 
-                    className="absolute inset-0 w-full h-full pointer-events-none" 
-                    viewBox="0 0 1100 825" // DUHET TE JETË IDENTIKE ME DIMENSIONET E FOTOS TËNDE
-                    preserveAspectRatio="xMidYMid slice"
-                  >
-                    <defs>
-                      {/* Maskat e tua nga Photoshop/Figma */}
-                      <clipPath id="island-top">
-                        <path d="M545.099 0.502686L0.0986328 84.0027L344.099 153.003L790.599 18.0027L545.099 0.502686Z" />
-                      </clipPath>
-                      <clipPath id="backsplash">
-                        <path d="M603 14.5117L0.5 0.511719V126.512L603 90.0117V14.5117Z" />
-                      </clipPath>
-                      <clipPath id="island-side">
-                        <path d="M34.5 255.164H0.5V10.1643L33.5 0.664307V255.164Z" />
-                        {/* Shto këtu edhe path-et e tjera anësore nëse i ke */}
-                      </clipPath>
-                    </defs>
+  {/* SHTRESA 2: SVG MASKING */}
+  <svg 
+    className="absolute inset-0 w-full h-full pointer-events-none" 
+    viewBox="0 0 1100 825" // <--- SHËNIM: Ndryshoje këtë nëse fotoja jote ka përmasa të tjera
+    preserveAspectRatio="xMidYMid slice"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      {/* 1. Maska e Ishullit (Pjesa e sipërme) */}
+      <clipPath id="mask-island-top">
+        <path d="M545.099 0.502686L0.0986328 84.0027L344.099 153.003L790.599 18.0027L545.099 0.502686Z" />
+      </clipPath>
 
-                    {selectedMaterial && (
-                      <g style={{ mixBlendMode: 'multiply', opacity: 0.92 }}>
-                        {/* Island Top */}
-                        {(selectedArea === 'countertop' || selectedArea === 'both') && (
-                          <image
-                            xlinkHref={selectedMaterial.image_url}
-                            width="100%" height="100%"
-                            preserveAspectRatio="none"
-                            clipPath="url(#island-top)"
-                          />
-                        )}
-                        {/* Island Side */}
-                        {(selectedArea === 'countertop' || selectedArea === 'both') && (
-                          <image
-                            xlinkHref={selectedMaterial.image_url}
-                            width="100%" height="100%"
-                            preserveAspectRatio="none"
-                            clipPath="url(#island-side)"
-                          />
-                        )}
-                        {/* Backsplash */}
-                        {(selectedArea === 'backsplash' || selectedArea === 'both') && (
-                          <image
-                            xlinkHref={selectedMaterial.image_url}
-                            width="100%" height="100%"
-                            preserveAspectRatio="none"
-                            clipPath="url(#backsplash)"
-                          />
-                        )}
-                      </g>
-                    )}
-                  </svg>
-                  
-                  {/* SHTRESA 3: OVERLAY (Opsionale - për vazo/detaje sipër) */}
-                  {/* Nëse ke një PNG transparente vetëm me vazon dhe karriget, vendose këtu */}
-                </div>
+      {/* 2. Maska e Backsplash (Pjesa prapa) */}
+      <clipPath id="mask-backsplash">
+        <path d="M603 14.5117L0.5 0.511719V126.512L603 90.0117V14.5117Z" />
+      </clipPath>
+
+      {/* 3. Maska e Anësoreve të Ishullit (Bashkimi i 3 path-eve të vogla) */}
+      <clipPath id="mask-island-sides">
+        {/* Path-i i parë anësor */}
+        <path d="M0.5 0.607422V335.607H345.5V68.1074L0.5 0.607422Z" />
+        {/* Path-i i dytë anësor */}
+        <path d="M450 0.673584L0.5 136.674V159.674L450 20.1736V0.673584Z" />
+        {/* Path-i i tretë (shirit i hollë) */}
+        <path d="M33.5 255.164H0.5V10.1643L33.5 0.664307V255.164Z" />
+      </clipPath>
+    </defs>
+
+    {selectedMaterial && (
+      <g style={{ mixBlendMode: 'multiply', opacity: 0.95 }}>
+        {/* Vendosja e mermerit te Ishulli (Sipër) */}
+        {(selectedArea === 'countertop' || selectedArea === 'both') && (
+          <image
+            xlinkHref={selectedMaterial.image_url}
+            width="100%" height="100%"
+            preserveAspectRatio="none"
+            clipPath="url(#mask-island-top)"
+          />
+        )}
+
+        {/* Vendosja e mermerit te Ishulli (Anash) */}
+        {(selectedArea === 'countertop' || selectedArea === 'both') && (
+          <image
+            xlinkHref={selectedMaterial.image_url}
+            width="100%" height="100%"
+            preserveAspectRatio="none"
+            clipPath="url(#mask-island-sides)"
+          />
+        )}
+
+        {/* Vendosja e mermerit te Backsplash */}
+        {(selectedArea === 'backsplash' || selectedArea === 'both') && (
+          <image
+            xlinkHref={selectedMaterial.image_url}
+            width="100%" height="100%"
+            preserveAspectRatio="none"
+            clipPath="url(#mask-backsplash)"
+          />
+        )}
+      </g>
+    )}
+  </svg>
+</div>
 
                 {/* Kontrollet e zonave */}
                 <div className="absolute top-4 right-4 bg-white/90 p-3 rounded-md shadow-md">
