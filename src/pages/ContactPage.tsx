@@ -190,7 +190,7 @@ export default function ContactPage() {
         <div className="mt-12 bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="h-96 bg-gray-200">
             <iframe
-              src="https://www.google.com/maps/@41.3065261,19.7461322,15.18z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDExMy4wIKXMDSoASAFQAw%3D%3D"
+              src="https://maps.google.com/maps?q=41.3072713,19.7425352&hl=en&z=17&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}
