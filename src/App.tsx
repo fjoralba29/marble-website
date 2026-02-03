@@ -6,6 +6,7 @@ import MaterialsPage from './pages/MaterialsPage';
 import GalleryPage from './pages/GalleryPage';
 import RoomDesignPage from './pages/RoomDesignPage';
 import ContactPage from './pages/ContactPage';
+import KitchenVisualizerPage from './pages/KitchenVisualizerPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -34,6 +35,8 @@ function App() {
         );
       case 'design':
         return <RoomDesignPage />;
+      case 'visualizer':
+        return <KitchenVisualizerPage />;
       case 'contact':
         return <ContactPage />;
       default:
