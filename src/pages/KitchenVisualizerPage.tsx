@@ -53,6 +53,16 @@ export default function KitchenVisualizerPage() {
     }
   };
 
+  const getFilteredMaterials = () => {
+    if (!selectedSurface) return materials;
+
+    if (selectedSurface === 'leftWall') {
+      return materials.filter(m => m.category?.toLowerCase() === 'marble');
+    } else {
+      return materials.filter(m => m.category?.toLowerCase() !== 'marble');
+    }
+  };
+
   const surfaceLabels: Record<keyof SelectedMaterials, string> = {
     leftWall: 'Left Wall',
     floor: 'Floor',
@@ -137,8 +147,7 @@ export default function KitchenVisualizerPage() {
               <path
                 d="M624 368.5L6 351H1V502L624 476V368.5Z"
                 fill={selectedMaterials.leftWall ? 'url(#leftWallPattern)' : '#E5E7EB'}
-                stroke="#1F2937"
-                strokeWidth="2"
+                stroke="none"
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => handleSurfaceClick('leftWall')}
               />
@@ -147,8 +156,7 @@ export default function KitchenVisualizerPage() {
               <path
                 d="M654.75 638L305.75 568V903H654.75V638Z"
                 fill={selectedMaterials.floor ? 'url(#floorPattern)' : '#E5E7EB'}
-                stroke="#1F2937"
-                strokeWidth="2"
+                stroke="none"
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => handleSurfaceClick('floor')}
               />
@@ -157,8 +165,7 @@ export default function KitchenVisualizerPage() {
               <path
                 d="M656.5 637L306 567L852 475L1149.5 492.5L656.5 637Z"
                 fill={selectedMaterials.sidePanel ? 'url(#sidePanelPattern)' : '#E5E7EB'}
-                stroke="#1F2937"
-                strokeWidth="2"
+                stroke="none"
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => handleSurfaceClick('sidePanel')}
               />
@@ -167,8 +174,7 @@ export default function KitchenVisualizerPage() {
               <path
                 d="M1115 501.5L655 637V661.5L1115 524.5V501.5Z"
                 fill={selectedMaterials.countertop ? 'url(#countertopPattern)' : '#E5E7EB'}
-                stroke="#1F2937"
-                strokeWidth="2"
+                stroke="none"
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => handleSurfaceClick('countertop')}
               />
@@ -177,8 +183,7 @@ export default function KitchenVisualizerPage() {
               <path
                 d="M688.75 651.5L655.75 660.401V902.5H688.75V651.5Z"
                 fill={selectedMaterials.verticalStrip ? 'url(#verticalStripPattern)' : '#E5E7EB'}
-                stroke="#1F2937"
-                strokeWidth="2"
+                stroke="none"
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => handleSurfaceClick('verticalStrip')}
               />
@@ -249,7 +254,7 @@ export default function KitchenVisualizerPage() {
             </div>
             <div className="p-6 overflow-y-auto max-h-[60vh]">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {materials.map((material) => (
+                {getFilteredMaterials().map((material) => (
                   <button
                     key={material.id}
                     onClick={() => handleMaterialSelect(material)}
