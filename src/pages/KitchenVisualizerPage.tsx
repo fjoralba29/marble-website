@@ -94,7 +94,7 @@ export default function KitchenVisualizerPage() {
                 href="/dc4564-004-rt_1.png" 
                 width="1200" 
                 height="903" 
-                style={{ mixBlendMode: 'multiply', pointerEvents: 'none' }} 
+                style={{ mixBlendMode: '', pointerEvents: 'none' }} 
               />
 
               {/* INTERACTION LAYER: INVISIBLE BUTTONS */}
