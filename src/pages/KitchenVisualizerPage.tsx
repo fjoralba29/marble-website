@@ -57,9 +57,9 @@ export default function KitchenVisualizerPage() {
     if (!selectedSurface) return materials;
 
     if (selectedSurface === 'leftWall') {
-      return materials.filter(m => m.category?.toLowerCase() === 'marble');
+      return materials.filter((m) => m.category?.toLowerCase() === 'marble');
     } else {
-      return materials.filter(m => m.category?.toLowerCase() !== 'marble');
+      return materials.filter((m) => m.category?.toLowerCase() !== 'marble');
     }
   };
 
@@ -81,64 +81,68 @@ export default function KitchenVisualizerPage() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* SVG Visualizer */}
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-lg p-6">
+          <div className="lg:col-span-2 bg-white rounded-lg shadow-lg p-6 relative">
+            {/* Background Kitchen Image */}
+            <img
+              src="/dc4564-004-rt_1.png"
+              alt="Kitchen"
+              className="w-full h-auto block"
+            />
+
+            {/* SVG overlay */}
             <svg
-              width="100%"
-              height="100%"
               viewBox="0 0 1200 904"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-full h-auto"
+              className="absolute inset-0 w-full h-full"
             >
               <defs>
                 {selectedMaterials.leftWall && (
-                  <pattern id="leftWallPattern" patternUnits="objectBoundingBox" width="1" height="1">
-                    <image
-                      href={selectedMaterials.leftWall}
-                      width="620"
-                      height="151"
-                      preserveAspectRatio="xMidYMid slice"
-                    />
+                  <pattern
+                    id="leftWallPattern"
+                    patternUnits="userSpaceOnUse"
+                    width="300"
+                    height="300"
+                  >
+                    <image href={selectedMaterials.leftWall} width="300" height="300" />
                   </pattern>
                 )}
                 {selectedMaterials.floor && (
-                  <pattern id="floorPattern" patternUnits="objectBoundingBox" width="1" height="1">
-                    <image
-                      href={selectedMaterials.floor}
-                      width="546"
-                      height="336"
-                      preserveAspectRatio="xMidYMid slice"
-                    />
+                  <pattern
+                    id="floorPattern"
+                    patternUnits="userSpaceOnUse"
+                    width="200"
+                    height="200"
+                  >
+                    <image href={selectedMaterials.floor} width="200" height="200" />
                   </pattern>
                 )}
                 {selectedMaterials.sidePanel && (
-                  <pattern id="sidePanelPattern" patternUnits="objectBoundingBox" width="1" height="1">
-                    <image
-                      href={selectedMaterials.sidePanel}
-                      width="349"
-                      height="335"
-                      preserveAspectRatio="xMidYMid slice"
-                    />
+                  <pattern
+                    id="sidePanelPattern"
+                    patternUnits="userSpaceOnUse"
+                    width="300"
+                    height="300"
+                  >
+                    <image href={selectedMaterials.sidePanel} width="300" height="300" />
                   </pattern>
                 )}
                 {selectedMaterials.countertop && (
-                  <pattern id="countertopPattern" patternUnits="objectBoundingBox" width="1" height="1">
-                    <image
-                      href={selectedMaterials.countertop}
-                      width="494"
-                      height="23"
-                      preserveAspectRatio="xMidYMid slice"
-                    />
+                  <pattern
+                    id="countertopPattern"
+                    patternUnits="userSpaceOnUse"
+                    width="400"
+                    height="200"
+                  >
+                    <image href={selectedMaterials.countertop} width="400" height="200" />
                   </pattern>
                 )}
                 {selectedMaterials.verticalStrip && (
-                  <pattern id="verticalStripPattern" patternUnits="objectBoundingBox" width="1" height="1">
-                    <image
-                      href={selectedMaterials.verticalStrip}
-                      width="33"
-                      height="251"
-                      preserveAspectRatio="xMidYMid slice"
-                    />
+                  <pattern
+                    id="verticalStripPattern"
+                    patternUnits="userSpaceOnUse"
+                    width="150"
+                    height="300"
+                  >
+                    <image href={selectedMaterials.verticalStrip} width="150" height="300" />
                   </pattern>
                 )}
               </defs>
@@ -187,15 +191,6 @@ export default function KitchenVisualizerPage() {
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => handleSurfaceClick('verticalStrip')}
               />
-
-              {/* Kitchen Image Overlay */}
-              <image
-                href="/dc4564-004-rt_1.png"
-                width="1200"
-                height="903"
-                opacity="0.6"
-                style={{ pointerEvents: 'none' }}
-              />
             </svg>
           </div>
 
@@ -234,23 +229,21 @@ export default function KitchenVisualizerPage() {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[80vh] overflow-hidden">
-            <div className="p-6 border-b border-gray-200">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-gray-900">
-                  Select Material for {selectedSurface && surfaceLabels[selectedSurface]}
-                </h2>
-                <button
-                  onClick={() => {
-                    setIsModalOpen(false);
-                    setSelectedSurface(null);
-                  }}
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">
+                Select Material for {selectedSurface && surfaceLabels[selectedSurface]}
+              </h2>
+              <button
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setSelectedSurface(null);
+                }}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
             <div className="p-6 overflow-y-auto max-h-[60vh]">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
