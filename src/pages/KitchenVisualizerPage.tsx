@@ -133,14 +133,6 @@ export default function KitchenVisualizerPage() {
                 )}
               </defs>
 
-              {/* Background Kitchen Image */}
-              <image
-                href="/dc4564-004-rt_1.png"
-                width="1200"
-                height="903"
-                opacity="0.3"
-              />
-
               {/* Left Wall */}
               <path
                 d="M624 368.5L6 351H1V502L624 476V368.5Z"
@@ -189,6 +181,15 @@ export default function KitchenVisualizerPage() {
                 strokeWidth="2"
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => handleSurfaceClick('verticalStrip')}
+              />
+
+              {/* Kitchen Image Overlay */}
+              <image
+                href="/dc4564-004-rt_1.png"
+                width="1200"
+                height="903"
+                opacity="0.6"
+                style={{ pointerEvents: 'none' }}
               />
             </svg>
           </div>
