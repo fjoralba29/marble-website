@@ -45,20 +45,20 @@ export default function KitchenVisualizerPage() {
   };
 
   const surfaceLabels: Record<keyof SelectedMaterials, string> = {
-    backsplash: 'Backsplash Wall',
-    baseCabinet: 'Left Base Cabinet',
-    islandTop: 'Island Countertop',
-    islandFront: 'Island Front Face',
-    islandLeg: 'Island Side Leg',
+    backsplash: 'Back Wall / Backsplash',
+    baseCabinet: 'Left Cabinetry',
+    islandTop: 'Countertop Surface',
+    islandFront: 'Island Front',
+    islandLeg: 'Island Support Leg',
   };
 
-  // UPDATED PATHS
+  // LATEST PATHS REPLACED HERE
   const paths = {
     islandTop: "M654 637.5L311.5 569L853.5 486L1101.5 504.5L654 637.5Z",
     baseCabinet: "M654.75 638L310.5 569L305.75 903H654.75V638Z",
     islandFront: "M1101.5 504L655 637.5V661.5L1101.5 519.5V504Z",
     islandLeg: "M688.75 651.5L655.75 660.401V902.5H688.75V651.5Z",
-    backsplash: "M615.5 443.5V367.5L8 355.5V481.5L615.5 443.5Z"
+    backsplash: "M622 452V361.5L3.5 347V486L622 452Z"
   };
 
   return (
@@ -66,42 +66,42 @@ export default function KitchenVisualizerPage() {
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-4 gap-8">
           
-          {/* VISUALIZER SECTION */}
-          <div className="lg:col-span-3 bg-white rounded-xl shadow-xl p-4 relative">
-            <svg viewBox="0 0 1200 903" className="w-full h-auto block rounded-lg shadow-inner" xmlns="http://www.w3.org/2000/svg">
+          {/* VISUALIZER CANVAS */}
+          <div className="lg:col-span-3 bg-white rounded-2xl shadow-2xl p-4 relative overflow-hidden">
+            <svg viewBox="0 0 1200 903" className="w-full h-auto block rounded-lg" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 {Object.entries(selectedMaterials).map(([key, url]) => (
-                  <pattern key={key} id={`${key}Pattern`} patternUnits="userSpaceOnUse" width="600" height="600">
-                    <image href={url || ''} width="600" height="600" preserveAspectRatio="xMidYMid slice" />
+                  <pattern key={key} id={`${key}Pattern`} patternUnits="userSpaceOnUse" width="800" height="800">
+                    <image href={url || ''} width="800" height="800" preserveAspectRatio="xMidYMid slice" />
                   </pattern>
                 ))}
               </defs>
 
-              {/* 1. MARBLE LAYER (BOTTOM) */}
-              <g>
+              {/* BACK LAYER: MARBLE TEXTURES */}
+              <g id="marble-fills">
                 {Object.entries(paths).map(([key, d]) => (
                   <path 
                     key={key} 
                     d={d} 
-                    fill={selectedMaterials[key as keyof SelectedMaterials] ? `url(#${key}Pattern)` : '#f3f4f6'} 
+                    fill={selectedMaterials[key as keyof SelectedMaterials] ? `url(#${key}Pattern)` : '#E5E7EB'} 
                   />
                 ))}
               </g>
 
-              {/* 2. OVERLAY IMAGE (MIDDLE) */}
-              {/* mixBlendMode: multiply keeps the chairs/plates/shadows on top of the marble */}
+              {/* MIDDLE LAYER: THE KITCHEN PHOTO */}
+              {/* Multiply mode keeps chairs, plates, and shadows visible over the marble */}
               <image 
                 href="/dc4564-004-rt_1.png" 
                 width="1200" 
                 height="903" 
-                style={{ mixBlendMode: '', pointerEvents: 'none' }} 
+                style={{ mixBlendMode: 'multiply', pointerEvents: 'none' }} 
               />
 
-              {/* 3. INTERACTIVE HIT-BOXES (TOP) */}
+              {/* FRONT LAYER: INTERACTIVE HIT AREAS */}
               <g fill="transparent" style={{ pointerEvents: 'auto', cursor: 'pointer' }}>
                 {Object.entries(paths).map(([key, d]) => (
                   <path 
-                    key={`hit-${key}`} 
+                    key={`hitbox-${key}`} 
                     d={d} 
                     onClick={() => handleSurfaceClick(key as keyof SelectedMaterials)} 
                   />
@@ -110,37 +110,34 @@ export default function KitchenVisualizerPage() {
             </svg>
           </div>
 
-          {/* SIDE MENU SECTION */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-8">
-              <h2 className="text-xl font-bold text-gray-800 mb-6 border-b pb-4">Selections</h2>
-              <div className="space-y-5">
+          {/* SIDE MENU (KEPT) */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="bg-white rounded-2xl shadow-xl p-6 sticky top-8 border border-gray-100">
+              <h2 className="text-xl font-extrabold text-gray-900 mb-6 border-b pb-4">Designer Menu</h2>
+              <div className="space-y-4">
                 {(Object.keys(selectedMaterials) as Array<keyof SelectedMaterials>).map((key) => (
-                  <div key={key}>
-                    <label className="text-xs font-bold text-gray-500 uppercase mb-2 block tracking-tight">
+                  <div key={key} className="relative">
+                    <label className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-2 block">
                       {surfaceLabels[key]}
                     </label>
                     <button
                       onClick={() => handleSurfaceClick(key)}
-                      className={`w-full flex items-center gap-4 p-3 rounded-xl border-2 transition-all duration-200 ${
+                      className={`w-full flex items-center gap-4 p-2 rounded-xl border-2 transition-all ${
                         selectedMaterials[key] 
-                        ? 'border-indigo-500 bg-indigo-50 shadow-sm' 
-                        : 'border-gray-100 hover:border-gray-300 bg-gray-50'
+                        ? 'border-indigo-500 bg-indigo-50' 
+                        : 'border-gray-100 hover:border-gray-200 bg-white'
                       }`}
                     >
-                      <div className="w-14 h-14 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 border border-black/5 shadow-inner">
+                      <div className="w-16 h-16 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 shadow-sm border border-black/5">
                         {selectedMaterials[key] ? (
                           <img src={selectedMaterials[key]!} alt="" className="w-full h-full object-cover" />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold">+</div>
+                          <div className="w-full h-full flex items-center justify-center text-gray-300 text-xl">+</div>
                         )}
                       </div>
-                      <div className="text-left overflow-hidden">
-                        <p className="text-sm font-semibold text-gray-700 truncate">
-                          {selectedMaterials[key] ? 'Replace Marble' : 'Add Marble'}
-                        </p>
-                        <p className="text-[10px] text-gray-400">Click to customize</p>
-                      </div>
+                      <span className="text-sm font-bold text-gray-700 truncate">
+                        {selectedMaterials[key] ? 'Change Finish' : 'Pick Marble'}
+                      </span>
                     </button>
                   </div>
                 ))}
@@ -153,28 +150,32 @@ export default function KitchenVisualizerPage() {
 
       {/* MODAL WINDOW */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-6">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden">
-            <div className="px-8 py-6 border-b flex justify-between items-center bg-gray-50">
-              <h2 className="text-2xl font-black text-gray-800 uppercase tracking-tight">Select Finish</h2>
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-[2rem] shadow-2xl max-w-5xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+            <div className="p-8 border-b flex justify-between items-center bg-gray-50/50">
+              <div>
+                <h2 className="text-3xl font-black text-gray-900">Marble Collection</h2>
+                <p className="text-gray-500 font-medium">Select a premium finish for your surface</p>
+              </div>
               <button 
                 onClick={() => setIsModalOpen(false)}
-                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500 transition-colors"
+                className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-400 transition-all text-2xl"
               >
                 ✕
               </button>
             </div>
-            <div className="p-8 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+            <div className="p-8 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
               {materials.map((material) => (
                 <button 
                   key={material.id} 
                   onClick={() => handleMaterialSelect(material)}
-                  className="group flex flex-col items-center"
+                  className="group"
                 >
-                  <div className="w-full aspect-square rounded-2xl overflow-hidden border-4 border-transparent group-hover:border-indigo-500 transition-all shadow-md group-hover:shadow-indigo-200">
-                    <img src={material.image_url} alt={material.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className="relative aspect-square rounded-2xl overflow-hidden border-4 border-transparent group-hover:border-indigo-500 transition-all shadow-lg hover:shadow-indigo-100">
+                    <img src={material.image_url} alt={material.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
                   </div>
-                  <p className="mt-3 text-xs font-bold text-gray-600 group-hover:text-indigo-600 transition-colors">{material.name}</p>
+                  <p className="mt-3 text-sm font-bold text-gray-800 text-center group-hover:text-indigo-600 transition-colors">{material.name}</p>
                 </button>
               ))}
             </div>
