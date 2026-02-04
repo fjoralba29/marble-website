@@ -14,7 +14,6 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
     { name: 'Materials', path: 'materials' },
     { name: 'Gallery', path: 'gallery' },
     { name: 'Room Design', path: 'design' },
-    { name: 'Kitchen Visualizer', path: 'visualizer' },
     { name: 'Contact', path: 'contact' },
   ];
 

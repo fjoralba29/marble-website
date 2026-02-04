@@ -153,16 +153,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                Visualize Your Dream Kitchen
+                Design Your Dream Space
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Use our interactive kitchen visualizer to see how different marble types will look in your space before making a decision.
+                Explore our room design tool to visualize how different marble types will look in your space before making a decision.
               </p>
               <button
                 onClick={() => onNavigate('design')}
                 className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-lg font-semibold inline-flex items-center gap-2 transition-colors"
               >
-                Try Kitchen Visualizer
+                Try Room Design
                 <ArrowRight size={20} />
               </button>
             </div>
