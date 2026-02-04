@@ -90,7 +90,7 @@ export default function RoomDesignPage() {
               </g>
 
               <image
-                href="/dc4564-004-rt_3_1.png"
+                href="/dc4564-004-rt_13.png"
                 width="1200"
                 height="903"
                 style={{ mixBlendMode: '', pointerEvents: 'none' }}
