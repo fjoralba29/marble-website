@@ -3,10 +3,7 @@ import { supabase } from '../lib/supabase';
 import type { Material } from '../types';
 
 interface SelectedMaterials {
-  islandTop: string | null;
-  baseCabinet: string | null;
-  islandFront: string | null;
-  islandLeg: string | null;
+  island: string | null;
   backsplash: string | null;
 }
 
@@ -14,10 +11,7 @@ export default function RoomDesignPage() {
   const [materials, setMaterials] = useState<Material[]>([]);
   const [selectedSurface, setSelectedSurface] = useState<keyof SelectedMaterials | null>(null);
   const [selectedMaterials, setSelectedMaterials] = useState<SelectedMaterials>({
-    islandTop: null,
-    baseCabinet: null,
-    islandFront: null,
-    islandLeg: null,
+    island: null,
     backsplash: null,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,20 +39,18 @@ export default function RoomDesignPage() {
   };
 
   const surfaceLabels: Record<keyof SelectedMaterials, string> = {
+    island: 'Island & Countertops',
     backsplash: 'Back Wall / Backsplash',
-    baseCabinet: 'Left Cabinetry',
-    islandTop: 'Countertop Surface',
-    islandFront: 'Island Front',
-    islandLeg: 'Island Support Leg',
   };
 
-  const paths = {
-    islandTop: "M654 637.5L311.5 569L853.5 486L1101.5 504.5L654 637.5Z",
-    baseCabinet: "M654.75 638L310.5 569L305.75 903H654.75V638Z",
-    islandFront: "M1101.5 504L655 637.5V661.5L1101.5 519.5V504Z",
-    islandLeg: "M688.75 651.5L655.75 660.401V902.5H688.75V651.5Z",
-    backsplash: "M622 452V361.5L3.5 347V486L622 452Z"
-  };
+  const islandPaths = [
+    { key: 'islandTop', d: "M654 637.5L311.5 569L853.5 486L1101.5 504.5L654 637.5Z" },
+    { key: 'baseCabinet', d: "M654.75 638L310.5 569L305.75 903H654.75V638Z" },
+    { key: 'islandFront', d: "M1101.5 504L655 637.5V661.5L1101.5 519.5V504Z" },
+    { key: 'islandLeg', d: "M688.75 651.5L655.75 660.401V902.5H688.75V651.5Z" }
+  ];
+
+  const backsplashPath = "M622 452V361.5L3.5 347V486L622 452Z";
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
@@ -73,21 +65,26 @@ export default function RoomDesignPage() {
           <div className="lg:col-span-3 bg-white rounded-2xl shadow-2xl p-4 relative overflow-hidden">
             <svg viewBox="0 0 1200 903" className="w-full h-auto block rounded-lg" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                {Object.entries(selectedMaterials).map(([key, url]) => (
-                  <pattern key={key} id={`${key}Pattern`} patternUnits="userSpaceOnUse" width="800" height="800">
-                    <image href={url || ''} width="800" height="800" preserveAspectRatio="xMidYMid slice" />
-                  </pattern>
-                ))}
+                <pattern id="islandPattern" patternUnits="userSpaceOnUse" width="800" height="800">
+                  <image href={selectedMaterials.island || ''} width="800" height="800" preserveAspectRatio="xMidYMid slice" />
+                </pattern>
+                <pattern id="backsplashPattern" patternUnits="userSpaceOnUse" width="800" height="800">
+                  <image href={selectedMaterials.backsplash || ''} width="800" height="800" preserveAspectRatio="xMidYMid slice" />
+                </pattern>
               </defs>
 
               <g id="marble-fills">
-                {Object.entries(paths).map(([key, d]) => (
+                {islandPaths.map(({ key, d }) => (
                   <path
                     key={key}
                     d={d}
-                    fill={selectedMaterials[key as keyof SelectedMaterials] ? `url(#${key}Pattern)` : '#E5E7EB'}
+                    fill={selectedMaterials.island ? 'url(#islandPattern)' : '#E5E7EB'}
                   />
                 ))}
+                <path
+                  d={backsplashPath}
+                  fill={selectedMaterials.backsplash ? 'url(#backsplashPattern)' : '#E5E7EB'}
+                />
               </g>
 
               <image
@@ -98,47 +95,80 @@ export default function RoomDesignPage() {
               />
 
               <g fill="transparent" style={{ pointerEvents: 'auto', cursor: 'pointer' }}>
-                {Object.entries(paths).map(([key, d]) => (
+                {islandPaths.map(({ key, d }) => (
                   <path
                     key={`hitbox-${key}`}
                     d={d}
-                    onClick={() => handleSurfaceClick(key as keyof SelectedMaterials)}
+                    onClick={() => handleSurfaceClick('island')}
                   />
                 ))}
+                <path
+                  d={backsplashPath}
+                  onClick={() => handleSurfaceClick('backsplash')}
+                />
               </g>
             </svg>
           </div>
 
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white rounded-2xl shadow-xl p-6 sticky top-8 border border-gray-100">
-              <h2 className="text-xl font-extrabold text-gray-900 mb-6 border-b pb-4">Designer Menu</h2>
-              <div className="space-y-4">
-                {(Object.keys(selectedMaterials) as Array<keyof SelectedMaterials>).map((key) => (
-                  <div key={key} className="relative">
-                    <label className="text-[10px] font-bold text-orange-600 uppercase tracking-widest mb-2 block">
-                      {surfaceLabels[key]}
-                    </label>
-                    <button
-                      onClick={() => handleSurfaceClick(key)}
-                      className={`w-full flex items-center gap-4 p-2 rounded-xl border-2 transition-all ${
-                        selectedMaterials[key]
-                        ? 'border-orange-500 bg-orange-50'
-                        : 'border-gray-100 hover:border-gray-200 bg-white'
-                      }`}
-                    >
-                      <div className="w-16 h-16 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 shadow-sm border border-black/5">
-                        {selectedMaterials[key] ? (
-                          <img src={selectedMaterials[key]!} alt="" className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-gray-300 text-xl">+</div>
-                        )}
-                      </div>
-                      <span className="text-sm font-bold text-gray-700 truncate">
-                        {selectedMaterials[key] ? 'Change Finish' : 'Pick Material'}
+              <h2 className="text-xl font-extrabold text-gray-900 mb-6 border-b pb-4">Select Marble</h2>
+              <div className="space-y-6">
+                <div className="relative">
+                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 block">
+                    {surfaceLabels.island}
+                  </label>
+                  <button
+                    onClick={() => handleSurfaceClick('island')}
+                    className={`w-full flex items-center gap-4 p-3 rounded-xl border-2 transition-all ${
+                      selectedMaterials.island
+                      ? 'border-orange-500 bg-orange-50'
+                      : 'border-gray-200 hover:border-gray-300 bg-white'
+                    }`}
+                  >
+                    <div className="w-20 h-20 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 shadow-sm border border-black/5">
+                      {selectedMaterials.island ? (
+                        <img src={selectedMaterials.island} alt="" className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400 text-2xl">+</div>
+                      )}
+                    </div>
+                    <div className="flex-1 text-left">
+                      <span className="text-sm font-bold text-gray-700 block">
+                        {selectedMaterials.island ? 'Change Marble' : 'Select Marble'}
                       </span>
-                    </button>
-                  </div>
-                ))}
+                      <span className="text-xs text-gray-500">Applies to all island surfaces</span>
+                    </div>
+                  </button>
+                </div>
+
+                <div className="relative">
+                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 block">
+                    {surfaceLabels.backsplash}
+                  </label>
+                  <button
+                    onClick={() => handleSurfaceClick('backsplash')}
+                    className={`w-full flex items-center gap-4 p-3 rounded-xl border-2 transition-all ${
+                      selectedMaterials.backsplash
+                      ? 'border-orange-500 bg-orange-50'
+                      : 'border-gray-200 hover:border-gray-300 bg-white'
+                    }`}
+                  >
+                    <div className="w-20 h-20 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 shadow-sm border border-black/5">
+                      {selectedMaterials.backsplash ? (
+                        <img src={selectedMaterials.backsplash} alt="" className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400 text-2xl">+</div>
+                      )}
+                    </div>
+                    <div className="flex-1 text-left">
+                      <span className="text-sm font-bold text-gray-700 block">
+                        {selectedMaterials.backsplash ? 'Change Marble' : 'Select Marble'}
+                      </span>
+                      <span className="text-xs text-gray-500">Back wall material</span>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
