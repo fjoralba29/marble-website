@@ -91,7 +91,7 @@ export default function KitchenVisualizerPage() {
               {/* MIDDLE LAYER: THE KITCHEN PHOTO */}
               {/* Multiply mode keeps chairs, plates, and shadows visible over the marble */}
               <image 
-                href="/dc4564-004-rt_1.png" 
+                href="/dc4564-004-rt_3_1.png" 
                 width="1200" 
                 height="903" 
                 style={{ mixBlendMode: '', pointerEvents: 'none' }} 
