@@ -65,9 +65,11 @@ export default function RoomDesignPage() {
           <div className="lg:col-span-3 bg-white rounded-2xl shadow-2xl p-4 relative overflow-hidden">
             <svg viewBox="0 0 1200 903" className="w-full h-auto block rounded-lg" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <pattern id="islandPattern" patternUnits="userSpaceOnUse" width="800" height="800">
-                  <image href={selectedMaterials.island || ''} width="800" height="800" preserveAspectRatio="xMidYMid slice" />
-                </pattern>
+                {islandPaths.map(({ key }) => (
+                  <pattern key={key} id={`${key}Pattern`} patternUnits="userSpaceOnUse" width="800" height="800">
+                    <image href={selectedMaterials.island || ''} width="800" height="800" preserveAspectRatio="xMidYMid slice" />
+                  </pattern>
+                ))}
                 <pattern id="backsplashPattern" patternUnits="userSpaceOnUse" width="800" height="800">
                   <image href={selectedMaterials.backsplash || ''} width="800" height="800" preserveAspectRatio="xMidYMid slice" />
                 </pattern>
@@ -78,7 +80,7 @@ export default function RoomDesignPage() {
                   <path
                     key={key}
                     d={d}
-                    fill={selectedMaterials.island ? 'url(#islandPattern)' : '#E5E7EB'}
+                    fill={selectedMaterials.island ? `url(#${key}Pattern)` : '#E5E7EB'}
                   />
                 ))}
                 <path
