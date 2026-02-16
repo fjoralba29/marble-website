@@ -60,7 +60,7 @@ export default function RoomDesignPage() {
             Dizajni i Dhomës
           </h1>
           <p className="text-xl text-gray-300">
-            Klikoni në çdo sipërfaqe për të aplikuar mermerin e zgjedhur
+            Klikoni në çdo sipërfaqe për të zgjedhur mermerin
           </p>
         </div>
       </div>
