@@ -104,9 +104,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold mb-1">Telefoni</h3>
                   <p className="text-gray-600">
-                    Kryesore: (555) 123-4567<br />
-                    Shitje: (555) 123-4568<br />
-                    Mbështetje: (555) 123-4569
+                    Kryesore: (355) 68 21 63 688<br />
                   </p>
                 </div>
               </div>
