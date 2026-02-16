@@ -104,7 +104,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold mb-1">Telefoni</h3>
                   <p className="text-gray-600">
-                    Kryesore: (355) 68 21 63 688<br />
+                    +(355) 68 21 63 688<br />
                   </p>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold mb-1">Email</h3>
                   <p className="text-gray-600">
-                    General: mermerbeqaraj@gmail.com<br />
+                    mermerbeqaraj@gmail.com<br />
                   </p>
                 </div>
               </div>
