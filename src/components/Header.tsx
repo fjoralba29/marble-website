@@ -29,7 +29,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                       src={"/logo.png"}
                       alt={"Logo"}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-                    />
+                   
             Beqaraj Mermer
           </div>
 
