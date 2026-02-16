@@ -25,6 +25,11 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
             className="text-2xl font-bold text-gray-900 cursor-pointer"
             onClick={() => onNavigate('home')}
           >
+            <img
+                      src={"/logo.png"}
+                      alt={material.name}
+                      
+                    />
             Beqaraj Mermer
           </div>
 
