@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-          <p>&copy; 2026 Mermer Premium. Të gjitha të drejtat e rezervuara.</p>
+          <p>&copy; 2026 Beqaraj Mermer. Të gjitha të drejtat e rezervuara.</p>
         </div>
       </div>
     </footer>
