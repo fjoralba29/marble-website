@@ -23,8 +23,8 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Kontakt</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li>Telefon: (555) 123-4567</li>
-              <li>Email: info@premiummarble.com</li>
+              <li>Telefon: +(355) 68 21 63 688</li>
+              <li>Email: mermerbeqaraj@gmail.com</li>
               <li>Orari: Hën-Pre 9am-6pm</li>
             </ul>
           </div>
