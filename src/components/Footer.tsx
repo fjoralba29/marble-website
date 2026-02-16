@@ -33,8 +33,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Vendndodhja</h4>
             <p className="text-sm text-gray-400">
               Rruga Nacionale Tiranë - Durrës<br />
-                    Vaqarr Rruga e Mermerit 123<br />
-              Qyteti i Gurit, ST 12345<br />
+              Vaqarr Rruga e Mermerit 123<br />
               Shqipëri
             </p>
           </div>
