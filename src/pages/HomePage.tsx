@@ -37,7 +37,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         <div
           className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: 'url(https://instagram.ftia4-1.fna.fbcdn.net/v/t51.2885-19/358939176_243501931811353_4458498674609316626_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby41MzUuYzIifQ&_nc_ht=instagram.ftia4-1.fna.fbcdn.net&_nc_cat=101&_nc_oc=Q6cZ2QGtkgTQSDx-Ctea4kLcYsF6_VdfPNjZL9odz1EC5bKtpP2wir4Ijf5Gme8HZjnyvmE&_nc_ohc=mTzlNKCmxS4Q7kNvwGP-qJ6&_nc_gid=M9d5b3HnIfBoeTZWq9Zwsw&edm=APoiHPcBAAAA&ccb=7-5&oh=00_AfsJ-L-vgrpxKnsuLmu0ALwhj_vA8zYVwN4fYR8lWFQ_SQ&oe=69990A6D&_nc_sid=22de04)',
+            backgroundImage: '/public/home.jpg',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
