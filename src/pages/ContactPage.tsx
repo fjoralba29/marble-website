@@ -116,9 +116,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold mb-1">Email</h3>
                   <p className="text-gray-600">
-                    General: info@premiummarble.com<br />
-                    Sales: sales@premiummarble.com<br />
-                    Support: support@premiummarble.com
+                    General: mermerbeqaraj@gmail.com<br />
                   </p>
                 </div>
               </div>
