@@ -28,7 +28,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
             <img
                       src={"/logo.png"}
                       alt={"Logo"}
-                      className="w-4 h-4 object-cover hover:scale-105 transition-transform duration-300" />
+                      className="w-24 h-24 object-cover hover:scale-105 transition-transform duration-300" />
                    
             Beqaraj Mermer
           </div>
