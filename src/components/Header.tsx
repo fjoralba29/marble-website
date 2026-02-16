@@ -25,7 +25,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
             className="text-2xl font-bold text-gray-900 cursor-pointer"
             onClick={() => onNavigate('home')}
           >
-            Premium Marble
+            Beqaraj Mermer
           </div>
 
           <nav className="hidden md:flex space-x-8">
