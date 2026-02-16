@@ -91,9 +91,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold mb-1">Adresa</h3>
                   <p className="text-gray-600">
-                    123 Marble Street<br />
-                    Stone City, ST 12345<br />
-                    United States
+                    Rruga Nacionale Tiranë - Durrës<br />
+                    Vaqarr
                   </p>
                 </div>
               </div>
