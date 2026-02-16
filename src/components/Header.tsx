@@ -22,13 +22,13 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div
-            className="text-2xl font-bold text-gray-900 cursor-pointer flex flex-row "
+            className="text-2xl font-bold text-gray-900 cursor-pointer flex flex-row items-center"
             onClick={() => onNavigate('home')}
           >
             <img
                       src={"/logo.png"}
                       alt={"Logo"}
-                      className="w-32 h-32 object-cover hover:scale-105 transition-transform duration-300" />
+                      className="w-4 h-4 object-cover hover:scale-105 transition-transform duration-300" />
                    
             Beqaraj Mermer
           </div>
