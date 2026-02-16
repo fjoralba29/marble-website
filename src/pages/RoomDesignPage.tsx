@@ -39,8 +39,8 @@ export default function RoomDesignPage() {
   };
 
   const surfaceLabels: Record<keyof SelectedMaterials, string> = {
-    island: 'Island & Countertops',
-    backsplash: 'Back Wall / Backsplash',
+    island: 'Ishulli & Banak',
+    backsplash: 'Muri i Pasëm / Backsplash',
   };
 
   const islandPaths = [
@@ -57,10 +57,10 @@ export default function RoomDesignPage() {
       <div className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Room Design
+            Dizajni i Dhomës
           </h1>
           <p className="text-xl text-gray-300">
-            Click on any surface to apply your selected marble
+            Klikoni në çdo sipërfaqe për të aplikuar mermerin e zgjedhur
           </p>
         </div>
       </div>
@@ -120,7 +120,7 @@ export default function RoomDesignPage() {
 
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white rounded-2xl shadow-xl p-6 sticky top-8 border border-gray-100">
-              <h2 className="text-xl font-extrabold text-gray-900 mb-6 border-b pb-4">Select Marble</h2>
+              <h2 className="text-xl font-extrabold text-gray-900 mb-6 border-b pb-4">Zgjidhni Mermerin</h2>
               <div className="space-y-6">
                 <div className="relative">
                   <label className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 block">
@@ -143,9 +143,9 @@ export default function RoomDesignPage() {
                     </div>
                     <div className="flex-1 text-left">
                       <span className="text-sm font-bold text-gray-700 block">
-                        {selectedMaterials.island ? 'Change Marble' : 'Select Marble'}
+                        {selectedMaterials.island ? 'Ndrysho Mermerin' : 'Zgjidh Mermerin'}
                       </span>
-                      <span className="text-xs text-gray-500">Applies to all island surfaces</span>
+                      <span className="text-xs text-gray-500">Aplikohet për të gjitha sipërfaqet e ishullit</span>
                     </div>
                   </button>
                 </div>
@@ -171,9 +171,9 @@ export default function RoomDesignPage() {
                     </div>
                     <div className="flex-1 text-left">
                       <span className="text-sm font-bold text-gray-700 block">
-                        {selectedMaterials.backsplash ? 'Change Marble' : 'Select Marble'}
+                        {selectedMaterials.backsplash ? 'Ndrysho Mermerin' : 'Zgjidh Mermerin'}
                       </span>
-                      <span className="text-xs text-gray-500">Back wall material</span>
+                      <span className="text-xs text-gray-500">Materiali i murit të pasëm</span>
                     </div>
                   </button>
                 </div>
@@ -188,8 +188,8 @@ export default function RoomDesignPage() {
           <div className="bg-white rounded-[2rem] shadow-2xl max-w-5xl w-full max-h-[90vh] flex flex-col overflow-hidden">
             <div className="p-8 border-b flex justify-between items-center bg-gray-50/50">
               <div>
-                <h2 className="text-3xl font-black text-gray-900">Material Collection</h2>
-                <p className="text-gray-500 font-medium">Select a premium finish for {selectedSurface && surfaceLabels[selectedSurface]}</p>
+                <h2 className="text-3xl font-black text-gray-900">Koleksioni i Materialeve</h2>
+                <p className="text-gray-500 font-medium">Zgjidhni një përfundim premium për {selectedSurface && surfaceLabels[selectedSurface]}</p>
               </div>
               <button
                 onClick={() => setIsModalOpen(false)}

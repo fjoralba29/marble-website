@@ -95,10 +95,10 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
       <div className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Premium Materials
+            Materiale Premium
           </h1>
           <p className="text-xl text-gray-300">
-            Discover our extensive collection of marble and natural stone
+            Zbuloni koleksionin tonë të gjerë të mermerit dhe gurit natyror
           </p>
         </div>
       </div>
@@ -112,7 +112,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
-                <h2 className="text-xl font-bold mb-4">Materials</h2>
+                <h2 className="text-xl font-bold mb-4">Materiale</h2>
                 <div className="space-y-2">
                   {categories.map((cat) => (
                     <button
@@ -151,7 +151,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                   <div>
                     <h2 className="text-2xl font-bold mb-1">{selectedCategory}</h2>
                     <p className="text-gray-600">
-                      {filteredMaterials.length} {filteredMaterials.length === 1 ? 'type' : 'types'} available
+                      {filteredMaterials.length} {filteredMaterials.length === 1 ? 'lloj' : 'lloje'} në dispozicion
                     </p>
                   </div>
 
@@ -161,11 +161,11 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                       className="md:hidden flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
                     >
                       <Filter size={20} />
-                      Filters
+                      Filtrat
                     </button>
 
                     <div className="hidden md:flex items-center gap-2">
-                      <label className="text-sm font-medium text-gray-700">Color:</label>
+                      <label className="text-sm font-medium text-gray-700">Ngjyra:</label>
                       <select
                         value={selectedColor}
                         onChange={(e) => setSelectedColor(e.target.value)}
@@ -180,7 +180,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                     </div>
 
                     <div className="hidden md:flex items-center gap-2">
-                      <label className="text-sm font-medium text-gray-700">Sort:</label>
+                      <label className="text-sm font-medium text-gray-700">Rendit:</label>
                       <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value)}
@@ -196,7 +196,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                 {showFilters && (
                   <div className="md:hidden mt-4 pt-4 border-t space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Color</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Ngjyra</label>
                       <select
                         value={selectedColor}
                         onChange={(e) => setSelectedColor(e.target.value)}
@@ -211,7 +211,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Sort by</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Rendit sipas</label>
                       <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value)}
@@ -249,7 +249,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                 </div>
               ) : (
                 <div className="bg-white rounded-lg shadow-md p-12 text-center">
-                  <p className="text-gray-500 text-lg">No material types found matching your filters.</p>
+                  <p className="text-gray-500 text-lg">Nuk u gjetën lloje materialesh që përputhen me filtrat tuaj.</p>
                 </div>
               )}
             </div>
@@ -281,33 +281,33 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
 
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-semibold text-lg mb-2">Description</h3>
+                  <h3 className="font-semibold text-lg mb-2">Përshkrimi</h3>
                   <p className="text-gray-700">{selectedMaterial.description}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-semibold mb-1">Color</h4>
+                    <h4 className="font-semibold mb-1">Ngjyra</h4>
                     <p className="text-gray-600 capitalize">{selectedMaterial.color}</p>
                   </div>
 
                   {selectedMaterial.origin && (
                     <div>
-                      <h4 className="font-semibold mb-1">Origin</h4>
+                      <h4 className="font-semibold mb-1">Origjina</h4>
                       <p className="text-gray-600">{selectedMaterial.origin}</p>
                     </div>
                   )}
 
                   {selectedMaterial.price_range && (
                     <div>
-                      <h4 className="font-semibold mb-1">Price Range</h4>
+                      <h4 className="font-semibold mb-1">Gama e Çmimeve</h4>
                       <p className="text-gray-600">{selectedMaterial.price_range}</p>
                     </div>
                   )}
 
                   {selectedMaterial.finish_types && selectedMaterial.finish_types.length > 0 && (
                     <div>
-                      <h4 className="font-semibold mb-1">Available Finishes</h4>
+                      <h4 className="font-semibold mb-1">Përfundimet në Dispozicion</h4>
                       <p className="text-gray-600">{selectedMaterial.finish_types.join(', ')}</p>
                     </div>
                   )}

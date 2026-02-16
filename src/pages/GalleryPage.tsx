@@ -78,7 +78,7 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
               className="flex items-center gap-2 text-gray-300 hover:text-white mb-6 transition-colors"
             >
               <ArrowLeft size={20} />
-              Back to Gallery
+              Kthehu te Galeria
             </button>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               {selectedCategory.name}
@@ -119,7 +119,7 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
 
           {!loading && images.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-gray-500 text-lg">No images available in this category yet.</p>
+              <p className="text-gray-500 text-lg">Ende nuk ka imazhe të disponueshme në këtë kategori.</p>
             </div>
           )}
         </div>
@@ -132,10 +132,10 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
       <div className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Gallery
+            Galeria
           </h1>
           <p className="text-xl text-gray-300">
-            Explore stunning spaces featuring our premium marble and stone
+            Eksploroni hapësira mahnitëse me mermer dhe gur premium të yni
           </p>
         </div>
       </div>
@@ -164,7 +164,7 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
                       <h3 className="text-2xl font-bold mb-2">{category.name}</h3>
                       <p className="text-gray-200 text-sm mb-3">{category.description}</p>
                       <div className="flex items-center gap-2 text-sm font-semibold text-orange-400 group-hover:text-orange-300">
-                        View Gallery
+                        Shiko Galerinë
                         <ArrowRight size={16} />
                       </div>
                     </div>
@@ -177,7 +177,7 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
 
         {!loading && categories.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-gray-500 text-lg">No gallery categories available yet.</p>
+            <p className="text-gray-500 text-lg">Ende nuk ka kategori galerie të disponueshme.</p>
           </div>
         )}
       </div>
