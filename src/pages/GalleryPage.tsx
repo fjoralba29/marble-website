@@ -135,7 +135,7 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
             Galeria
           </h1>
           <p className="text-xl text-gray-300">
-            Eksploroni hapësira mahnitëse me mermer dhe gur premium të yni
+            Eksploroni hapësira mahnitëse me mermer dhe gur premium 
           </p>
         </div>
       </div>
