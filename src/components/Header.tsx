@@ -10,7 +10,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Ballina', path: 'home' },
+    { name: 'Home', path: 'home' },
     { name: 'Materiale', path: 'materials' },
     { name: 'Galeria', path: 'gallery' },
     { name: 'Dizajni i Dhomës', path: 'design' },
