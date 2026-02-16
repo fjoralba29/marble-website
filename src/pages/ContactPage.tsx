@@ -44,11 +44,11 @@ export default function ContactPage() {
         }),
       });
 
-      alert('Thank you for your message! We will get back to you soon.');
+      alert('Faleminderit për mesazhin tuaj! Do t\'ju përgjigjemi së shpejti.');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
       console.error('Error submitting inquiry:', error);
-      alert('There was an error submitting your message. Please try again.');
+      alert('Pati një gabim në dërgimin e mesazhit tuaj. Ju lutemi provoni përsëri.');
     } finally {
       setIsSubmitting(false);
     }
@@ -66,10 +66,10 @@ export default function ContactPage() {
       <div className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Contact Us
+            Na Kontaktoni
           </h1>
           <p className="text-xl text-gray-300">
-            Get in touch with our team of marble experts
+            Lidhuni me ekipin tonë të ekspertëve të mermerit
           </p>
         </div>
       </div>
@@ -77,10 +77,10 @@ export default function ContactPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
+            <h2 className="text-3xl font-bold mb-6">Kontaktoni Me Ne</h2>
             <p className="text-gray-600 mb-8">
-              Have questions about our marble products or need help with your project?
-              Fill out the form and our team will respond within 24 hours.
+              Keni pyetje rreth produkteve tona të mermerit ose keni nevojë për ndihmë me projektin tuaj?
+              Plotësoni formularin dhe ekipi ynë do t'ju përgjigjet brenda 24 orëve.
             </p>
 
             <div className="space-y-6">
@@ -89,7 +89,7 @@ export default function ContactPage() {
                   <MapPin className="text-orange-600" size={24} />
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-1">Address</h3>
+                  <h3 className="font-semibold mb-1">Adresa</h3>
                   <p className="text-gray-600">
                     123 Marble Street<br />
                     Stone City, ST 12345<br />
@@ -103,11 +103,11 @@ export default function ContactPage() {
                   <Phone className="text-orange-600" size={24} />
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-1">Phone</h3>
+                  <h3 className="font-semibold mb-1">Telefoni</h3>
                   <p className="text-gray-600">
-                    Main: (555) 123-4567<br />
-                    Sales: (555) 123-4568<br />
-                    Support: (555) 123-4569
+                    Kryesore: (555) 123-4567<br />
+                    Shitje: (555) 123-4568<br />
+                    Mbështetje: (555) 123-4569
                   </p>
                 </div>
               </div>
@@ -131,31 +131,31 @@ export default function ContactPage() {
                   <Clock className="text-orange-600" size={24} />
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-1">Business Hours</h3>
+                  <h3 className="font-semibold mb-1">Orari i Punës</h3>
                   <p className="text-gray-600">
-                    Monday - Friday: 9:00 AM - 6:00 PM<br />
-                    Saturday: 10:00 AM - 4:00 PM<br />
-                    Sunday: Closed
+                    E Hënë - E Premte: 9:00 AM - 6:00 PM<br />
+                    E Shtunë: 10:00 AM - 4:00 PM<br />
+                    E Diel: Mbyllur
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="mt-8 p-6 bg-orange-50 rounded-lg border border-orange-100">
-              <h3 className="font-semibold text-lg mb-2">Visit Our Showroom</h3>
+              <h3 className="font-semibold text-lg mb-2">Vizitoni Showroom-in Tonë</h3>
               <p className="text-gray-700 text-sm">
-                See our extensive collection in person. Schedule an appointment with our design
-                consultants to explore materials, get expert advice, and discuss your project needs.
+                Shihni koleksionin tonë të gjerë personalisht. Planifikoni një takim me konsulentët tanë të dizajnit
+                për të eksploruar materialet, për të marrë këshilla nga ekspertët dhe për të diskutuar nevojat tuaja të projektit.
               </p>
             </div>
           </div>
 
           <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
+            <h2 className="text-2xl font-bold mb-6">Dërgoni një Mesazh</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name *
+                  Emri i Plotë *
                 </label>
                 <input
                   type="text"
@@ -165,13 +165,13 @@ export default function ContactPage() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  placeholder="John Doe"
+                  placeholder="Emri Mbiemri"
                 />
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address *
+                  Adresa e Email-it *
                 </label>
                 <input
                   type="email"
@@ -181,13 +181,13 @@ export default function ContactPage() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  placeholder="john@example.com"
+                  placeholder="emri@shembull.com"
                 />
               </div>
 
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number
+                  Numri i Telefonit
                 </label>
                 <input
                   type="tel"
@@ -196,13 +196,13 @@ export default function ContactPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  placeholder="(555) 123-4567"
+                  placeholder="+355 69 123 4567"
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
+                  Mesazhi *
                 </label>
                 <textarea
                   id="message"
@@ -212,7 +212,7 @@ export default function ContactPage() {
                   required
                   rows={6}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
-                  placeholder="Tell us about your project..."
+                  placeholder="Na tregoni rreth projektit tuaj..."
                 />
               </div>
 
@@ -221,7 +221,7 @@ export default function ContactPage() {
                 disabled={isSubmitting}
                 className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? 'Duke dërguar...' : 'Dërgo Mesazhin'}
               </button>
             </form>
           </div>
