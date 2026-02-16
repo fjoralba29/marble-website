@@ -35,9 +35,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
     <div className="min-h-screen">
       <section className="relative h-[600px] bg-gradient-to-r from-gray-900 to-gray-700 flex items-center justify-center text-white">
         <div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-40"
           style={{
-            backgroundImage: '/public/home.jpg',
+            backgroundImage: 'url(/home.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
