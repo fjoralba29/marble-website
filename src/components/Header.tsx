@@ -26,7 +26,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
             onClick={() => onNavigate('home')}
           >
             <img
-                      src={"/logo.png"}
+                      src={"/logo2.png"}
                       alt={"Logo"}
                       className="w-24 h-24 object-cover hover:scale-105 transition-transform duration-300" />
                    
