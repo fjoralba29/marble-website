@@ -27,7 +27,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
           >
             <img
                       src={"/logo.png"}
-                      alt={material.name}
+                      alt={"Logo"}
                       
                     />
             Beqaraj Mermer
