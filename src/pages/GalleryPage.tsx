@@ -13,6 +13,7 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
   const [selectedCategory, setSelectedCategory] = useState<GalleryCategory | null>(null);
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(true);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   useEffect(() => {
     if (categoryId) {
@@ -95,23 +96,18 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {images.map((image) => (
                 <div
                   key={image.id}
-                  className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow"
+                  onClick={() => setLightboxImage(image.image_url)}
+                  className="aspect-square overflow-hidden rounded-lg cursor-pointer group"
                 >
-                  <div className="h-64 overflow-hidden">
-                    <img
-                      src={image.image_url}
-                      alt={image.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2">{image.title}</h3>
-                    <p className="text-gray-600 text-sm">{image.description}</p>
-                  </div>
+                  <img
+                    src={image.image_url}
+                    alt=""
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
                 </div>
               ))}
             </div>
@@ -123,6 +119,26 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
             </div>
           )}
         </div>
+
+        {lightboxImage && (
+          <div
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+            onClick={() => setLightboxImage(null)}
+          >
+            <button
+              onClick={() => setLightboxImage(null)}
+              className="absolute top-4 right-4 text-white hover:text-gray-300 text-4xl leading-none"
+            >
+              &times;
+            </button>
+            <img
+              src={lightboxImage}
+              alt=""
+              className="max-w-full max-h-full object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        )}
       </div>
     );
   }
