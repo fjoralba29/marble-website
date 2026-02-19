@@ -50,24 +50,6 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
               ))}
             </nav>
 
-            {/* <div className="hidden md:flex items-center gap-3">
-              <a
-                href="https://www.instagram.com/beqaraj_mermer__stone/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 hover:text-orange-600 transition-colors"
-              >
-                <Instagram size={20} />
-              </a>
-              <a
-                href="https://www.facebook.com/p/Beqaraj-mermer-100063825162690/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 hover:text-orange-600 transition-colors"
-              >
-                <Facebook size={20} />
-              </a>
-            </div> */}
 
             <button
               className="md:hidden p-2"
