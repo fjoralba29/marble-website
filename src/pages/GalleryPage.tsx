@@ -122,19 +122,19 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
 
         {lightboxImage && (
           <div
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-2"
             onClick={() => setLightboxImage(null)}
           >
             <button
               onClick={() => setLightboxImage(null)}
-              className="absolute top-4 right-4 text-white hover:text-gray-300 text-4xl leading-none"
+              className="absolute top-4 right-4 text-white hover:text-gray-300 text-4xl leading-none z-10"
             >
               &times;
             </button>
             <img
               src={lightboxImage}
               alt=""
-              className="max-w-full max-h-full object-contain"
+              className="w-[95vw] h-[95vh] object-contain"
               onClick={(e) => e.stopPropagation()}
             />
           </div>
