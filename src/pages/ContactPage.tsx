@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone, Clock } from 'lucide-react';
+import { Mail, MapPin, Phone, Clock, Instagram, Facebook } from 'lucide-react';
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 
@@ -133,6 +133,28 @@ export default function ContactPage() {
                     E Diel: Mbyllur
                   </p>
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <h3 className="font-semibold text-lg mb-4">Na Ndiqni</h3>
+              <div className="flex gap-4">
+                <a
+                  href="https://www.instagram.com/beqaraj_mermer__stone/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-orange-100 p-3 rounded-lg hover:bg-orange-200 transition-colors"
+                >
+                  <Instagram className="text-orange-600" size={28} />
+                </a>
+                <a
+                  href="https://www.facebook.com/p/Beqaraj-mermer-100063825162690/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-orange-100 p-3 rounded-lg hover:bg-orange-200 transition-colors"
+                >
+                  <Facebook className="text-orange-600" size={28} />
+                </a>
               </div>
             </div>
 
