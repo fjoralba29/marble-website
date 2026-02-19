@@ -165,8 +165,8 @@ export default function ContactPage() {
                 për të eksploruar materialet, për të marrë këshilla nga ekspertët dhe për të diskutuar nevojat tuaja të projektit.
               </p>
             </div>
-          </div>
-
+          </div>vrv
+{/* 
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-2xl font-bold mb-6">Dërgoni një Mesazh</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -242,7 +242,7 @@ export default function ContactPage() {
               </button>
             </form>
           </div>
-        </div>
+        </div> */}
 
         <div className="mt-12 bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="h-96 bg-gray-200">
