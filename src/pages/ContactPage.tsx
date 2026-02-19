@@ -23,63 +23,80 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-            <div className="flex items-start gap-6">
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-xl shadow-lg flex-shrink-0">
-                <MapPin className="text-white" size={32} />
+        <div className="bg-white rounded-2xl shadow-xl p-8 mb-16">
+          <h3 className="text-2xl font-bold mb-8 text-gray-900 text-center">Informacione Kontakti</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="flex items-start gap-4">
+              <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-3 rounded-xl shadow-lg flex-shrink-0">
+                <MapPin className="text-white" size={28} />
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">Adresa</h3>
-                <p className="text-gray-700 text-lg leading-relaxed">
+                <h4 className="font-bold mb-2 text-gray-900">Adresa</h4>
+                <p className="text-gray-700 leading-relaxed">
                   Rruga Nacionale Tiranë - Durrës<br />
                   Vaqarr, Shqipëri
                 </p>
               </div>
             </div>
-          </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-            <div className="flex items-start gap-6">
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-xl shadow-lg flex-shrink-0">
-                <Phone className="text-white" size={32} />
+            <div className="flex items-start gap-4">
+              <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-3 rounded-xl shadow-lg flex-shrink-0">
+                <Phone className="text-white" size={28} />
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">Telefoni</h3>
-                <a href="tel:+355682163688" className="text-gray-700 text-lg hover:text-orange-600 transition-colors">
+                <h4 className="font-bold mb-2 text-gray-900">Telefoni</h4>
+                <a href="tel:+355682163688" className="text-gray-700 hover:text-orange-600 transition-colors">
                   +(355) 68 21 63 688
                 </a>
               </div>
             </div>
-          </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-            <div className="flex items-start gap-6">
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-xl shadow-lg flex-shrink-0">
-                <Mail className="text-white" size={32} />
+            <div className="flex items-start gap-4">
+              <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-3 rounded-xl shadow-lg flex-shrink-0">
+                <Mail className="text-white" size={28} />
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">Email</h3>
-                <a href="mailto:mermerbeqaraj@gmail.com" className="text-gray-700 text-lg hover:text-orange-600 transition-colors break-all">
+                <h4 className="font-bold mb-2 text-gray-900">Email</h4>
+                <a href="mailto:mermerbeqaraj@gmail.com" className="text-gray-700 hover:text-orange-600 transition-colors break-all">
                   mermerbeqaraj@gmail.com
                 </a>
               </div>
             </div>
-          </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-            <div className="flex items-start gap-6">
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-xl shadow-lg flex-shrink-0">
-                <Clock className="text-white" size={32} />
+            <div className="flex items-start gap-4">
+              <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-3 rounded-xl shadow-lg flex-shrink-0">
+                <Clock className="text-white" size={28} />
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">Orari i Punës</h3>
-                <div className="text-gray-700 text-lg space-y-1">
+                <h4 className="font-bold mb-2 text-gray-900">Orari i Punës</h4>
+                <div className="text-gray-700 space-y-1">
                   <p>E Hënë - E Premte: 9:00 AM - 6:00 PM</p>
                   <p>E Shtunë: 10:00 AM - 4:00 PM</p>
                   <p className="text-gray-500">E Diel: Mbyllur</p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div className="mt-8 pt-8 border-t border-gray-200">
+            <h4 className="font-bold text-lg mb-4 text-gray-900 text-center">Na Ndiqni</h4>
+            <div className="flex gap-4 justify-center">
+              <a
+                href="https://www.instagram.com/beqaraj_mermer__stone/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl hover:from-orange-100 hover:to-orange-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+              >
+                <Instagram className="text-orange-600" size={32} />
+              </a>
+              <a
+                href="https://www.facebook.com/p/Beqaraj-mermer-100063825162690/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl hover:from-orange-100 hover:to-orange-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+              >
+                <Facebook className="text-orange-600" size={32} />
+              </a>
             </div>
           </div>
         </div>
