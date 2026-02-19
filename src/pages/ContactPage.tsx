@@ -241,8 +241,8 @@ export default function ContactPage() {
                 {isSubmitting ? 'Duke dërguar...' : 'Dërgo Mesazhin'}
               </button>
             </form>
-          </div>
-        </div> */}
+          </div> */
+        </div> 
 
         <div className="mt-12 bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="h-96 bg-gray-200">
