@@ -49,7 +49,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                 </button>
               ))}
             </nav>
-hgh
+
             {/* <div className="hidden md:flex items-center gap-3">
               <a
                 href="https://www.instagram.com/beqaraj_mermer__stone/"
