@@ -1,4 +1,4 @@
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Instagram, Facebook } from 'lucide-react';
 import { useState } from 'react';
 
 interface HeaderProps {
@@ -33,28 +33,49 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
             Beqaraj Mermer
           </div>
 
-          <nav className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.path}
-                onClick={() => onNavigate(item.path)}
-                className={`${
-                  currentPage === item.path
-                    ? 'text-orange-600 border-b-2 border-orange-600'
-                    : 'text-gray-700 hover:text-orange-600'
-                } px-3 py-2 text-sm font-medium transition-colors`}
-              >
-                {item.name}
-              </button>
-            ))}
-          </nav>
+          <div className="flex items-center gap-6">
+            <nav className="hidden md:flex space-x-8">
+              {navItems.map((item) => (
+                <button
+                  key={item.path}
+                  onClick={() => onNavigate(item.path)}
+                  className={`${
+                    currentPage === item.path
+                      ? 'text-orange-600 border-b-2 border-orange-600'
+                      : 'text-gray-700 hover:text-orange-600'
+                  } px-3 py-2 text-sm font-medium transition-colors`}
+                >
+                  {item.name}
+                </button>
+              ))}
+            </nav>
 
-          <button
-            className="md:hidden p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            <div className="hidden md:flex items-center gap-3">
+              <a
+                href="https://www.instagram.com/beqaraj_mermer__stone/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-orange-600 transition-colors"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://www.facebook.com/p/Beqaraj-mermer-100063825162690/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-orange-600 transition-colors"
+              >
+                <Facebook size={20} />
+              </a>
+            </div>
+
+            <button
+              className="md:hidden p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -77,6 +98,24 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                 {item.name}
               </button>
             ))}
+            <div className="flex gap-4 px-4 pt-4 border-t">
+              <a
+                href="https://www.instagram.com/beqaraj_mermer__stone/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-orange-600 transition-colors"
+              >
+                <Instagram size={24} />
+              </a>
+              <a
+                href="https://www.facebook.com/p/Beqaraj-mermer-100063825162690/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-orange-600 transition-colors"
+              >
+                <Facebook size={24} />
+              </a>
+            </div>
           </div>
         </div>
       )}

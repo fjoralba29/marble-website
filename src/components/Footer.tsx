@@ -1,3 +1,5 @@
+import { Instagram, Facebook } from 'lucide-react';
+
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white mt-auto">
@@ -8,6 +10,24 @@ export default function Footer() {
             <p className="text-gray-400 text-sm">
               Burimi juaj i besuar për produkte mermeri dhe guri natyror premium.
             </p>
+            <div className="flex gap-4 mt-4">
+              <a
+                href="https://www.instagram.com/beqaraj_mermer__stone/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-orange-500 transition-colors"
+              >
+                <Instagram size={24} />
+              </a>
+              <a
+                href="https://www.facebook.com/p/Beqaraj-mermer-100063825162690/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-orange-500 transition-colors"
+              >
+                <Facebook size={24} />
+              </a>
+            </div>
           </div>
 
           <div>
