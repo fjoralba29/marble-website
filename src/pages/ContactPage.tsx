@@ -17,14 +17,14 @@ export default function ContactPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-gray-900">Si Mund T'ju Ndihmojmë?</h2>
+          <h2 className="text-4xl font-bold mb-4 text-gray-900">Ku mund të na gjeni?</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Jemi këtu për t'ju përgjigjur çdo pyetjeje dhe për t'ju ndihmuar të gjeni zgjidhjen perfekte për projektin tuaj
           </p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-16">
-          <h3 className="text-2xl font-bold mb-8 text-gray-900 text-center">Informacione Kontakti</h3>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex items-start gap-4">
               <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-3 rounded-xl shadow-lg flex-shrink-0">
