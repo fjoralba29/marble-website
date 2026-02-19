@@ -21,7 +21,7 @@ export default function RoomDesignPage() {
   }, []);
 
   const fetchMaterials = async () => {
-    const { data, error } = await supabase.from('materials').select('*').order('name');
+    const { data, error } = await supabase.from('materials').select('*').order('category', { ascending: true }).order('name');
     if (!error && data) setMaterials(data);
   };
 
@@ -198,19 +198,30 @@ export default function RoomDesignPage() {
                 ✕
               </button>
             </div>
-            <div className="p-8 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-              {materials.map((material) => (
-                <button
-                  key={material.id}
-                  onClick={() => handleMaterialSelect(material)}
-                  className="group"
-                >
-                  <div className="relative aspect-square rounded-2xl overflow-hidden border-4 border-transparent group-hover:border-orange-500 transition-all shadow-lg hover:shadow-orange-100">
-                    <img src={material.image_url} alt={material.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+            <div className="p-8 overflow-y-auto space-y-8">
+              {Array.from(new Set(materials.map(m => m.category))).map((category) => (
+                <div key={category}>
+                  <h3 className="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">
+                    {category}
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {materials
+                      .filter((material) => material.category === category)
+                      .map((material) => (
+                        <button
+                          key={material.id}
+                          onClick={() => handleMaterialSelect(material)}
+                          className="group"
+                        >
+                          <div className="relative aspect-square rounded-2xl overflow-hidden border-4 border-transparent group-hover:border-orange-500 transition-all shadow-lg hover:shadow-orange-100">
+                            <img src={material.image_url} alt={material.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                          </div>
+                          <p className="mt-3 text-sm font-bold text-gray-800 text-center group-hover:text-orange-600 transition-colors">{material.name}</p>
+                        </button>
+                      ))}
                   </div>
-                  <p className="mt-3 text-sm font-bold text-gray-800 text-center group-hover:text-orange-600 transition-colors">{material.name}</p>
-                </button>
+                </div>
               ))}
             </div>
           </div>
