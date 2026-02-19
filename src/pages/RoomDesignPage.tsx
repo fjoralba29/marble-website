@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import type { Material } from '../types';
 
@@ -15,6 +16,7 @@ export default function RoomDesignPage() {
     backsplash: null,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openCategories, setOpenCategories] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetchMaterials();
@@ -22,7 +24,25 @@ export default function RoomDesignPage() {
 
   const fetchMaterials = async () => {
     const { data, error } = await supabase.from('materials').select('*').order('category', { ascending: true }).order('name');
-    if (!error && data) setMaterials(data);
+    if (!error && data) {
+      setMaterials(data);
+      const categories = Array.from(new Set(data.map(m => m.category)));
+      if (categories.length > 0) {
+        setOpenCategories(new Set([categories[0]]));
+      }
+    }
+  };
+
+  const toggleCategory = (category: string) => {
+    setOpenCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(category)) {
+        next.delete(category);
+      } else {
+        next.add(category);
+      }
+      return next;
+    });
   };
 
   const handleSurfaceClick = (surface: keyof SelectedMaterials) => {
@@ -198,31 +218,54 @@ export default function RoomDesignPage() {
                 ✕
               </button>
             </div>
-            <div className="p-8 overflow-y-auto space-y-8">
-              {Array.from(new Set(materials.map(m => m.category))).map((category) => (
-                <div key={category}>
-                  <h3 className="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">
-                    {category}
-                  </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {materials
-                      .filter((material) => material.category === category)
-                      .map((material) => (
-                        <button
-                          key={material.id}
-                          onClick={() => handleMaterialSelect(material)}
-                          className="group"
-                        >
-                          <div className="relative aspect-square rounded-2xl overflow-hidden border-4 border-transparent group-hover:border-orange-500 transition-all shadow-lg hover:shadow-orange-100">
-                            <img src={material.image_url} alt={material.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                          </div>
-                          <p className="mt-3 text-sm font-bold text-gray-800 text-center group-hover:text-orange-600 transition-colors">{material.name}</p>
-                        </button>
-                      ))}
+            <div className="p-8 overflow-y-auto space-y-3">
+              {Array.from(new Set(materials.map(m => m.category))).map((category) => {
+                const isOpen = openCategories.has(category);
+                const categoryMaterials = materials.filter((material) => material.category === category);
+
+                return (
+                  <div key={category} className="border border-gray-200 rounded-xl overflow-hidden">
+                    <button
+                      onClick={() => toggleCategory(category)}
+                      className="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <h3 className="text-lg font-bold text-gray-900">
+                          {category}
+                        </h3>
+                        <span className="text-sm text-gray-500 font-medium">
+                          ({categoryMaterials.length})
+                        </span>
+                      </div>
+                      <ChevronDown
+                        className={`w-5 h-5 text-gray-600 transition-transform ${
+                          isOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+
+                    {isOpen && (
+                      <div className="p-6 bg-white">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                          {categoryMaterials.map((material) => (
+                            <button
+                              key={material.id}
+                              onClick={() => handleMaterialSelect(material)}
+                              className="group"
+                            >
+                              <div className="relative aspect-square rounded-2xl overflow-hidden border-4 border-transparent group-hover:border-orange-500 transition-all shadow-lg hover:shadow-orange-100">
+                                <img src={material.image_url} alt={material.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                              </div>
+                              <p className="mt-3 text-sm font-bold text-gray-800 text-center group-hover:text-orange-600 transition-colors">{material.name}</p>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
