@@ -168,7 +168,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg">
               <img
-                src="/DC4564-004-RT.jpg"
+                src="/dc4564-004-rt.jpg"
                 alt="Kitchen Design"
                 className="w-full h-full object-cover"
               />
