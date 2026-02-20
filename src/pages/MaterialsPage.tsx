@@ -23,7 +23,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
   const [sortBy, setSortBy] = useState<string>('name');
   const [showFilters, setShowFilters] = useState(false);
 
-  const colors = ['all', 'white', 'black', 'gray', 'beige', 'brown', 'green', 'red', 'gold'];
+  const colors = ['all', 'Bardhe', 'black', 'gray', 'beige', 'brown', 'green', 'red', 'gold'];
 
   useEffect(() => {
     loadMaterials();
