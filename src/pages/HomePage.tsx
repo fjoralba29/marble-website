@@ -153,7 +153,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                Dizajnoni Hapësirën Tuaj të Ëndrrave
+                Dizenjoni Hapësirën Tuaj të Ëndrrave
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Eksploroni mjetet tona të dizajnit të dhomave për të vizualizuar se si llojet e ndryshme të mermerit do të duken në hapësirën tuaj para se të merrni një vendim.
