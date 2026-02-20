@@ -105,27 +105,10 @@ export default function ContactPage() {
           <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl shadow-lg p-8 border border-orange-200">
             <h3 className="text-2xl font-bold mb-4 text-gray-900">Vizitoni Showroom-in Tonë</h3>
             <p className="text-gray-700 text-lg leading-relaxed mb-6">
-              Shihni koleksionin tonë të gjerë personalisht. Planifikoni një takim me konsulentët tanë të dizajnit
+              Shikoni koleksionin tonë të gjerë personalisht. Planifikoni një takim me konsulentët tanë të dizajnit
               për të eksploruar materialet, për të marrë këshilla nga ekspertët dhe për të diskutuar nevojat tuaja të projektit.
             </p>
-            <div className="flex gap-4">
-              <a
-                href="https://www.instagram.com/beqaraj_mermer__stone/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white p-4 rounded-xl hover:bg-orange-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
-              >
-                <Instagram className="text-orange-600" size={32} />
-              </a>
-              <a
-                href="https://www.facebook.com/p/Beqaraj-mermer-100063825162690/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white p-4 rounded-xl hover:bg-orange-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
-              >
-                <Facebook className="text-orange-600" size={32} />
-              </a>
-            </div>
+            
           </div>
 
           <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl shadow-lg p-8 border border-gray-200">
