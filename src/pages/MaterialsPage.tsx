@@ -22,8 +22,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
   const [selectedColor, setSelectedColor] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('name');
   const [showFilters, setShowFilters] = useState(false);
-
-  const colors = ['all', 'Bardhe', 'black', 'gray', 'beige', 'brown', 'green', 'red', 'gold'];
+  const [availableColors, setAvailableColors] = useState<string[]>(['all']);
 
   useEffect(() => {
     loadMaterials();
@@ -47,6 +46,16 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
       if (!selectedCategory && categoryCounts.length > 0) {
         setSelectedCategory(categoryCounts[0].category);
       }
+
+      const uniqueColors = Array.from(
+        new Set(
+          materials
+            .map(m => m.color.toLowerCase().trim())
+            .filter(color => color)
+        )
+      ).sort();
+
+      setAvailableColors(['all', ...uniqueColors]);
     }
   }, [materials]);
 
@@ -171,7 +180,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                         onChange={(e) => setSelectedColor(e.target.value)}
                         className="px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                       >
-                        {colors.map(color => (
+                        {availableColors.map(color => (
                           <option key={color} value={color}>
                             {color.charAt(0).toUpperCase() + color.slice(1)}
                           </option>
@@ -202,7 +211,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                         onChange={(e) => setSelectedColor(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500"
                       >
-                        {colors.map(color => (
+                        {availableColors.map(color => (
                           <option key={color} value={color}>
                             {color.charAt(0).toUpperCase() + color.slice(1)}
                           </option>
