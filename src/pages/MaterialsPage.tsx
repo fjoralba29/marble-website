@@ -178,9 +178,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                       <select
                         value={selectedColor}
                         onChange={(e) => setSelectedColor(e.target.value)}
-                        size={4}
-                        className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500 focus:border-transparent overflow-y-auto"
-                        style={{ height: '120px' }}
+                        className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                       >
                         {availableColors.map(color => (
                           <option key={color} value={color}>
@@ -195,9 +193,7 @@ export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
                       <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value)}
-                        size={2}
-                        className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500 focus:border-transparent overflow-y-auto"
-                        style={{ height: '80px' }}
+                        className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                       >
                         <option value="name">A-Z</option>
                         <option value="name-desc">Z-A</option>
