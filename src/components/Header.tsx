@@ -7,7 +7,7 @@ export default function Header() {
   const location = useLocation();
 
   const navItems = [
-    { name: 'Home', path: '/home' },
+    { name: 'Home', path: '/' },
     { name: 'Materiale', path: '/materials' },
     { name: 'Galeria', path: '/gallery' },
     { name: 'Dizajni i Dhomës', path: '/design' },
