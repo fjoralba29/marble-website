@@ -1,14 +1,12 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { GalleryCategory, GalleryImage } from '../types';
 
-interface GalleryPageProps {
-  onNavigate: (page: string, data?: unknown) => void;
-  categoryId?: string;
-}
-
-export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps) {
+export default function GalleryPage() {
+  const { categoryId } = useParams<{ categoryId: string }>();
+  const navigate = useNavigate();
   const [categories, setCategories] = useState<GalleryCategory[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<GalleryCategory | null>(null);
   const [images, setImages] = useState<GalleryImage[]>([]);
@@ -66,7 +64,7 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
   };
 
   const handleCategoryClick = (category: GalleryCategory) => {
-    onNavigate('gallery-detail', { categoryId: category.id });
+    navigate(`/gallery/${category.id}`);
   };
 
   if (categoryId && selectedCategory) {
@@ -75,7 +73,7 @@ export default function GalleryPage({ onNavigate, categoryId }: GalleryPageProps
         <div className="bg-gray-900 text-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <button
-              onClick={() => onNavigate('gallery')}
+              onClick={() => navigate('/gallery')}
               className="flex items-center gap-2 text-gray-300 hover:text-white mb-6 transition-colors"
             >
               <ArrowLeft size={20} />

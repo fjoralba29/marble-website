@@ -1,55 +1,58 @@
 import { Menu, X, Instagram, Facebook } from 'lucide-react';
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-interface HeaderProps {
-  currentPage: string;
-  onNavigate: (page: string) => void;
-}
-
-export default function Header({ currentPage, onNavigate }: HeaderProps) {
+export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const navItems = [
-    { name: 'Home', path: 'home' },
-    { name: 'Materiale', path: 'materials' },
-    { name: 'Galeria', path: 'gallery' },
-    { name: 'Dizajni i Dhomës', path: 'design' },
-    { name: 'Kontakt', path: 'contact' },
+    { name: 'Home', path: '/home' },
+    { name: 'Materiale', path: '/materials' },
+    { name: 'Galeria', path: '/gallery' },
+    { name: 'Dizajni i Dhomës', path: '/design' },
+    { name: 'Kontakt', path: '/contact' },
   ];
+
+  const isActive = (path: string) => {
+    if (path === '/home') {
+      return location.pathname === '/' || location.pathname === '/home';
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div
+          <Link
+            to="/home"
             className="text-2xl font-bold text-gray-900 cursor-pointer flex flex-row items-center"
-            onClick={() => onNavigate('home')}
           >
             <img
-                      src={"/logo2.png"}
-                      alt={"Logo"}
-                      className=" h-12 object-cover hover:scale-105 transition-transform duration-300" />
-                   
+              src={"/logo2.png"}
+              alt={"Logo"}
+              className=" h-12 object-cover hover:scale-105 transition-transform duration-300" />
+
             Beqaraj Mermer
-          </div>
+          </Link>
 
           <div className="flex items-center gap-6">
             <nav className="hidden md:flex space-x-8">
               {navItems.map((item) => (
-                <button
+                <Link
                   key={item.path}
-                  onClick={() => onNavigate(item.path)}
+                  to={item.path}
                   className={`${
-                    currentPage === item.path
+                    isActive(item.path)
                       ? 'text-orange-600 border-b-2 border-orange-600'
                       : 'text-gray-700 hover:text-orange-600'
                   } px-3 py-2 text-sm font-medium transition-colors`}
                 >
                   {item.name}
-                </button>
+                </Link>
               ))}
             </nav>
-
 
             <button
               className="md:hidden p-2"
@@ -65,20 +68,18 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
         <div className="md:hidden bg-white border-t">
           <div className="px-4 py-4 space-y-3">
             {navItems.map((item) => (
-              <button
+              <Link
                 key={item.path}
-                onClick={() => {
-                  onNavigate(item.path);
-                  setMobileMenuOpen(false);
-                }}
+                to={item.path}
+                onClick={() => setMobileMenuOpen(false)}
                 className={`${
-                  currentPage === item.path
+                  isActive(item.path)
                     ? 'text-orange-600 bg-orange-50'
                     : 'text-gray-700'
                 } block w-full text-left px-4 py-2 rounded-md hover:bg-gray-50`}
               >
                 {item.name}
-              </button>
+              </Link>
             ))}
             <div className="flex gap-4 px-4 pt-4 border-t">
               <a

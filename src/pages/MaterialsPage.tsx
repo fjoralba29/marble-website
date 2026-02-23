@@ -3,16 +3,12 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Material } from '../types';
 
-interface MaterialsPageProps {
-  onNavigate: (page: string, data?: unknown) => void;
-}
-
 interface CategoryCount {
   category: string;
   count: number;
 }
 
-export default function MaterialsPage({ onNavigate }: MaterialsPageProps) {
+export default function MaterialsPage() {
   const [materials, setMaterials] = useState<Material[]>([]);
   const [categories, setCategories] = useState<CategoryCount[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');

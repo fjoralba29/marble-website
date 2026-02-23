@@ -1,13 +1,11 @@
 import { ArrowRight, Award, Clock, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { Material } from '../types';
 
-interface HomePageProps {
-  onNavigate: (page: string, data?: unknown) => void;
-}
-
-export default function HomePage({ onNavigate }: HomePageProps) {
+export default function HomePage() {
+  const navigate = useNavigate();
   const [featuredMaterials, setFeaturedMaterials] = useState<Material[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -50,7 +48,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             Mbi 2,000 ngjyra dhe modele guri për hapësirën tuaj të ëndrrave
           </p>
           <button
-            onClick={() => onNavigate('materials')}
+            onClick={() => navigate('/materials')}
             className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center gap-2 transition-colors"
           >
             Eksploroni Materialet
@@ -116,7 +114,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <div
                   key={material.id}
                   className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow cursor-pointer"
-                  onClick={() => onNavigate('materials')}
+                  onClick={() => navigate('/materials')}
                 >
                   <div className="h-64 overflow-hidden">
                     <img
@@ -138,7 +136,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
           <div className="text-center mt-12">
             <button
-              onClick={() => onNavigate('materials')}
+              onClick={() => navigate('/materials')}
               className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-lg font-semibold inline-flex items-center gap-2 transition-colors"
             >
               Shikoni Të Gjitha Materialet
@@ -159,7 +157,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 Eksploroni mjetet tona të dizajnit të dhomave për të vizualizuar se si llojet e ndryshme të mermerit do të duken në hapësirën tuaj para se të merrni një vendim.
               </p>
               <button
-                onClick={() => onNavigate('design')}
+                onClick={() => navigate('/design')}
                 className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-lg font-semibold inline-flex items-center gap-2 transition-colors"
               >
                 Provoni Dizajnin e Dhomës
