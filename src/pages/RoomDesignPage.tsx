@@ -92,8 +92,8 @@ export default function RoomDesignPage() {
             <svg viewBox="0 0 1200 903" className="w-full h-auto block rounded-lg" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 {islandPaths.map(({ key }) => (
-                  <pattern key={key} id={`${key}Pattern`} patternUnits="userSpaceOnUse" width="800" height="800">
-                    <image href={selectedMaterials.island || ''} width="800" height="800" preserveAspectRatio="xMidYMid slice" />
+                  <pattern key={key} id={`${key}Pattern`} patternUnits="userSpaceOnUse" width="1000" height="1000">
+                    <image href={selectedMaterials.island || ''} width="1000" height="1000" preserveAspectRatio="xMidYMid slice" />
                   </pattern>
                 ))}
                 <pattern id="backsplashPattern" patternUnits="userSpaceOnUse" width="800" height="800">
