@@ -7,7 +7,7 @@ export default function Header() {
   const location = useLocation();
 
   const navItems = [
-    { name: 'Home', path: '/' },
+    { name: 'Home', path: '/home' },
     { name: 'Materiale', path: '/materials' },
     { name: 'Galeria', path: '/gallery' },
     { name: 'Dizajni i Dhomës', path: '/design' },
@@ -18,7 +18,7 @@ export default function Header() {
     if (path === '/home') {
       return location.pathname === '/' || location.pathname === '/home';
     }
-    return location.pathname.startsWith(path);
+    return location.pathname === path || location.pathname.startsWith(path + '/');
   };
 
   return (
