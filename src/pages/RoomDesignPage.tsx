@@ -139,18 +139,20 @@ export default function RoomDesignPage() {
                                 {/* BACKSPLASH */}
                                 <pattern
                                     id='backsplashPattern'
-                                    patternUnits='objectBoundingBox'
-                                    patternContentUnits='objectBoundingBox'
-                                    width='1'
-                                    height='1'
+                                    patternUnits='userSpaceOnUse'
+                                    width='700'
+                                    height='903'
                                 >
                                     <image
                                         href={
                                             selectedMaterials.backsplash || ""
                                         }
-                                        width='1'
-                                        height='1'
+                                        x='0'
+                                        y='0'
+                                        width='1200'
+                                        height='903'
                                         preserveAspectRatio='xMidYMid slice'
+                                        transform='rotate(-15 600 451.5)'
                                     />
                                 </pattern>
                             </defs>
