@@ -141,7 +141,7 @@ export default function RoomDesignPage() {
                                     id='backsplashPattern'
                                     patternUnits='userSpaceOnUse'
                                     width='700'
-                                    height='903'
+                                    height='703'
                                 >
                                     <image
                                         href={
@@ -149,10 +149,10 @@ export default function RoomDesignPage() {
                                         }
                                         x='0'
                                         y='0'
-                                        width='1200'
-                                        height='903'
+                                        width='700'
+                                        height='703'
                                         preserveAspectRatio='xMidYMid slice'
-                                        transform='rotate(-15 600 451.5)'
+                                        transform='rotate(-15 500 451.5)'
                                     />
                                 </pattern>
                             </defs>
