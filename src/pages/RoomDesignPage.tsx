@@ -6,19 +6,25 @@ import type { Material } from "../types";
 interface SelectedMaterials {
     island: string | null;
     backsplash: string | null;
+    countertop: string | null;
 }
 
 export default function RoomDesignPage() {
     const [materials, setMaterials] = useState<Material[]>([]);
+
     const [selectedSurface, setSelectedSurface] = useState<
         keyof SelectedMaterials | null
     >(null);
+
     const [selectedMaterials, setSelectedMaterials] =
         useState<SelectedMaterials>({
             island: null,
             backsplash: null,
+            countertop: null,
         });
+
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const [openCategories, setOpenCategories] = useState<Set<string>>(
         new Set(),
     );
@@ -33,9 +39,12 @@ export default function RoomDesignPage() {
             .select("*")
             .order("category", { ascending: true })
             .order("name");
+
         if (!error && data) {
             setMaterials(data);
+
             const categories = Array.from(new Set(data.map((m) => m.category)));
+
             if (categories.length > 0) {
                 setOpenCategories(new Set([categories[0]]));
             }
@@ -45,11 +54,13 @@ export default function RoomDesignPage() {
     const toggleCategory = (category: string) => {
         setOpenCategories((prev) => {
             const next = new Set(prev);
+
             if (next.has(category)) {
                 next.delete(category);
             } else {
                 next.add(category);
             }
+
             return next;
         });
     };
@@ -65,6 +76,7 @@ export default function RoomDesignPage() {
                 ...prev,
                 [selectedSurface]: material.image_url,
             }));
+
             setIsModalOpen(false);
             setSelectedSurface(null);
         }
@@ -73,6 +85,7 @@ export default function RoomDesignPage() {
     const surfaceLabels: Record<keyof SelectedMaterials, string> = {
         island: "Ishulli & Banak",
         backsplash: "Muri i Pasëm / Backsplash",
+        countertop: "Countertop",
     };
 
     const islandPaths = [
@@ -96,6 +109,9 @@ export default function RoomDesignPage() {
 
     const backsplashPath = "M622 452V361.5L3.5 347V486L622 452Z";
 
+    // NEW COUNTERTOP PATH
+    const countertopPath = "M605 0L0 57.5V95L12.5 101.5L705.5 20V7.5L605 0Z";
+
     return (
         <div className='min-h-screen bg-gray-50'>
             <div className='bg-gray-900 text-white py-16'>
@@ -103,6 +119,7 @@ export default function RoomDesignPage() {
                     <h1 className='text-4xl md:text-5xl font-bold mb-4'>
                         Dizajni i Dhomës
                     </h1>
+
                     <p className='text-xl text-gray-300'>
                         Klikoni në sipërfaqe për të zgjedhur mermerin
                     </p>
@@ -111,6 +128,7 @@ export default function RoomDesignPage() {
 
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
                 <div className='grid lg:grid-cols-4 gap-8'>
+                    {/* SVG AREA */}
                     <div className='lg:col-span-3 bg-white rounded-2xl shadow-2xl p-4 relative overflow-hidden'>
                         <svg
                             viewBox='0 0 1200 903'
@@ -118,7 +136,7 @@ export default function RoomDesignPage() {
                             xmlns='http://www.w3.org/2000/svg'
                         >
                             <defs>
-                                {/* ISLAND MARBLE (SCALES PER PATH) */}
+                                {/* ISLAND */}
                                 <pattern
                                     id='islandMarblePattern'
                                     patternUnits='objectBoundingBox'
@@ -155,10 +173,31 @@ export default function RoomDesignPage() {
                                         transform='rotate(-15 500 451.5)'
                                     />
                                 </pattern>
+
+                                {/* COUNTERTOP */}
+                                <pattern
+                                    id='countertopPattern'
+                                    patternUnits='objectBoundingBox'
+                                    patternContentUnits='objectBoundingBox'
+                                    width='1'
+                                    height='1'
+                                >
+                                    <image
+                                        href={
+                                            selectedMaterials.countertop || ""
+                                        }
+                                        x='0'
+                                        y='0'
+                                        width='1'
+                                        height='1'
+                                        preserveAspectRatio='xMidYMid slice'
+                                    />
+                                </pattern>
                             </defs>
 
                             {/* FILLS */}
                             <g>
+                                {/* ISLAND */}
                                 {islandPaths.map(({ key, d }) => (
                                     <path
                                         key={key}
@@ -171,6 +210,7 @@ export default function RoomDesignPage() {
                                     />
                                 ))}
 
+                                {/* BACKSPLASH */}
                                 <path
                                     d={backsplashPath}
                                     fill={
@@ -179,11 +219,22 @@ export default function RoomDesignPage() {
                                             : "#E5E7EB"
                                     }
                                 />
+
+                                {/* NEW COUNTERTOP */}
+                                <path
+                                    d={countertopPath}
+                                    transform='translate(8 463) scale(1)'
+                                    fill={
+                                        selectedMaterials.countertop
+                                            ? "url(#countertopPattern)"
+                                            : "#E5E7EB"
+                                    }
+                                />
                             </g>
 
-                            {/* IMAGE OVERLAY */}
+                            {/* MAIN IMAGE */}
                             <image
-                                href='/dc4564-004-rt_15.png'
+                                href='/Kitchen.png'
                                 width='1200'
                                 height='903'
                                 style={{ pointerEvents: "none" }}
@@ -194,6 +245,7 @@ export default function RoomDesignPage() {
                                 fill='transparent'
                                 style={{ cursor: "pointer" }}
                             >
+                                {/* ISLAND */}
                                 {islandPaths.map(({ key, d }) => (
                                     <path
                                         key={`hit-${key}`}
@@ -203,26 +255,41 @@ export default function RoomDesignPage() {
                                         }
                                     />
                                 ))}
+
+                                {/* BACKSPLASH */}
                                 <path
                                     d={backsplashPath}
                                     onClick={() =>
                                         handleSurfaceClick("backsplash")
                                     }
                                 />
+
+                                {/* COUNTERTOP */}
+                                <path
+                                    d={countertopPath}
+                                    transform='translate(8 463) scale(1)'
+                                    onClick={() =>
+                                        handleSurfaceClick("countertop")
+                                    }
+                                />
                             </g>
                         </svg>
                     </div>
 
+                    {/* SIDEBAR */}
                     <div className='lg:col-span-1 space-y-6'>
                         <div className='bg-white rounded-2xl shadow-xl p-6 sticky top-8 border border-gray-100'>
                             <h2 className='text-xl font-extrabold text-gray-900 mb-6 border-b pb-4'>
                                 Zgjidhni Mermerin
                             </h2>
+
                             <div className='space-y-6'>
+                                {/* ISLAND */}
                                 <div className='relative'>
                                     <label className='text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 block'>
                                         {surfaceLabels.island}
                                     </label>
+
                                     <button
                                         onClick={() =>
                                             handleSurfaceClick("island")
@@ -248,12 +315,14 @@ export default function RoomDesignPage() {
                                                 </div>
                                             )}
                                         </div>
+
                                         <div className='flex-1 text-left'>
                                             <span className='text-sm font-bold text-gray-700 block'>
                                                 {selectedMaterials.island
                                                     ? "Ndrysho Mermerin"
                                                     : "Zgjidh Mermerin"}
                                             </span>
+
                                             <span className='text-xs text-gray-500'>
                                                 Aplikohet për të gjitha
                                                 sipërfaqet e ishullit
@@ -262,10 +331,12 @@ export default function RoomDesignPage() {
                                     </button>
                                 </div>
 
+                                {/* BACKSPLASH */}
                                 <div className='relative'>
                                     <label className='text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 block'>
                                         {surfaceLabels.backsplash}
                                     </label>
+
                                     <button
                                         onClick={() =>
                                             handleSurfaceClick("backsplash")
@@ -291,14 +362,62 @@ export default function RoomDesignPage() {
                                                 </div>
                                             )}
                                         </div>
+
                                         <div className='flex-1 text-left'>
                                             <span className='text-sm font-bold text-gray-700 block'>
                                                 {selectedMaterials.backsplash
                                                     ? "Ndrysho Mermerin"
                                                     : "Zgjidh Mermerin"}
                                             </span>
+
                                             <span className='text-xs text-gray-500'>
                                                 Materiali i murit të pasëm
+                                            </span>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                {/* COUNTERTOP */}
+                                <div className='relative'>
+                                    <label className='text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 block'>
+                                        {surfaceLabels.countertop}
+                                    </label>
+
+                                    <button
+                                        onClick={() =>
+                                            handleSurfaceClick("countertop")
+                                        }
+                                        className={`w-full flex items-center gap-4 p-3 rounded-xl border-2 transition-all ${
+                                            selectedMaterials.countertop
+                                                ? "border-orange-500 bg-orange-50"
+                                                : "border-gray-200 hover:border-gray-300 bg-white"
+                                        }`}
+                                    >
+                                        <div className='w-20 h-20 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 shadow-sm border border-black/5'>
+                                            {selectedMaterials.countertop ? (
+                                                <img
+                                                    src={
+                                                        selectedMaterials.countertop
+                                                    }
+                                                    alt=''
+                                                    className='w-full h-full object-cover'
+                                                />
+                                            ) : (
+                                                <div className='w-full h-full flex items-center justify-center text-gray-400 text-2xl'>
+                                                    +
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className='flex-1 text-left'>
+                                            <span className='text-sm font-bold text-gray-700 block'>
+                                                {selectedMaterials.countertop
+                                                    ? "Ndrysho Mermerin"
+                                                    : "Zgjidh Mermerin"}
+                                            </span>
+
+                                            <span className='text-xs text-gray-500'>
+                                                Materiali për countertop
                                             </span>
                                         </div>
                                     </button>
@@ -309,6 +428,7 @@ export default function RoomDesignPage() {
                 </div>
             </div>
 
+            {/* MODAL */}
             {isModalOpen && (
                 <div className='fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4'>
                     <div className='bg-white rounded-[2rem] shadow-2xl max-w-5xl w-full max-h-[90vh] flex flex-col overflow-hidden'>
@@ -317,12 +437,14 @@ export default function RoomDesignPage() {
                                 <h2 className='text-3xl font-black text-gray-900'>
                                     Koleksioni i Materialeve
                                 </h2>
+
                                 <p className='text-gray-500 font-medium'>
                                     Zgjidhni një përfundim premium për{" "}
                                     {selectedSurface &&
                                         surfaceLabels[selectedSurface]}
                                 </p>
                             </div>
+
                             <button
                                 onClick={() => setIsModalOpen(false)}
                                 className='w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-400 transition-all text-2xl'
@@ -330,11 +452,13 @@ export default function RoomDesignPage() {
                                 ✕
                             </button>
                         </div>
+
                         <div className='p-8 overflow-y-auto space-y-3'>
                             {Array.from(
                                 new Set(materials.map((m) => m.category)),
                             ).map((category) => {
                                 const isOpen = openCategories.has(category);
+
                                 const categoryMaterials = materials.filter(
                                     (material) =>
                                         material.category === category,
@@ -355,10 +479,12 @@ export default function RoomDesignPage() {
                                                 <h3 className='text-lg font-bold text-gray-900'>
                                                     {category}
                                                 </h3>
+
                                                 <span className='text-sm text-gray-500 font-medium'>
                                                     ({categoryMaterials.length})
                                                 </span>
                                             </div>
+
                                             <ChevronDown
                                                 className={`w-5 h-5 text-gray-600 transition-transform ${
                                                     isOpen ? "rotate-180" : ""
@@ -392,8 +518,10 @@ export default function RoomDesignPage() {
                                                                         }
                                                                         className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-700'
                                                                     />
+
                                                                     <div className='absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors' />
                                                                 </div>
+
                                                                 <p className='mt-3 text-sm font-bold text-gray-800 text-center group-hover:text-orange-600 transition-colors'>
                                                                     {
                                                                         material.name
