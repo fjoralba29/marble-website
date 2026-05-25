@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { Star } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 
 const stats = [
     { value: 200, suffix: "+", label: "Projekte të Realizuara" },
@@ -14,114 +14,162 @@ const stats = [
 const testimonials = [
     {
         name: "Ardit K.",
-        text: "Punë shumë profesionale dhe material cilësor. Rezultati final ishte mbi pritshmëritë!",
+        role: "Pronar Rezidence, Tiranë",
+        text: "Punë jashtëzakonisht profesionale dhe saktësi milimetrike në montimin e banakut të kuzhinës. Materiali i përzgjedhur është kryevepër.",
     },
     {
         name: "Elona M.",
-        text: "Komunikim perfekt dhe instalim i shpejtë. Do ju rekomandoja pa hezitim.",
+        role: "Arkitekte Interieri",
+        text: "Bashkëpunim perfekt në çdo fazë. Si arkitekte, vlerësoj maksimalisht vëmendjen ndaj detajeve dhe prerjet e pastra pa asnjë sforcim.",
     },
     {
         name: "Blerim T.",
-        text: "Mermeri që zgjodhëm duket fantastik në kuzhinë. Shërbim shumë i mirë.",
+        role: "Zhvillues Imobiliar",
+        text: "Mermeri i shkallëve dhe fasadës ka ngritur vlerën e të gjithë objektit. Korrektësi maksimale me afatet e dorëzimit.",
     },
 ];
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true });
-
+    const isInView = useInView(ref, { once: true, margin: "-50px" });
     const [count, setCount] = useState(0);
 
     useEffect(() => {
         if (!isInView) return;
 
-        let start = 0;
-        const duration = 1500;
-        const increment = value / (duration / 16);
+        let startTime: number | null = null;
+        const duration = 2000; // Smoother 2-second ease-out animation
 
-        const counter = setInterval(() => {
-            start += increment;
-            if (start >= value) {
-                setCount(value);
-                clearInterval(counter);
+        const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+
+            // Smooth cubic easeOut implementation
+            const progressPercentage = Math.min(progress / duration, 1);
+            const easeOutProgress = 1 - Math.pow(1 - progressPercentage, 3);
+
+            const currentCount = Math.floor(easeOutProgress * value);
+
+            if (progressPercentage < 1) {
+                setCount(currentCount);
+                requestAnimationFrame(animate);
             } else {
-                setCount(Math.floor(start));
+                setCount(value);
             }
-        }, 16);
+        };
 
-        return () => clearInterval(counter);
+        requestAnimationFrame(animate);
     }, [isInView, value]);
 
     return (
-        <h3
+        <div
             ref={ref}
-            className='text-4xl md:text-5xl font-bold text-[#ff6b00]'
+            className='font-serif'
         >
-            {count}
-            {suffix}
-        </h3>
+            <span className='text-4xl md:text-5xl lg:text-6xl font-medium text-[#f5deb3] tracking-tight '>
+                {count}
+            </span>
+            <span className='text-2xl md:text-3xl font-light text-amber-500 ml-0.5'>
+                {suffix}
+            </span>
+        </div>
     );
 }
 
 export default function TestimonialsStatsSection() {
     return (
-        <section className='w-full py-24 bg-gradient-to-b from-[#f3ede7] to-[#ffffff]'>
-            <div className='max-w-7xl mx-auto px-6'>
-                {/* TITLE */}
-                <div className='text-center mb-14'>
-                    <h2 className='text-4xl md:text-5xl font-semibold text-[#1a1a1a]'>
+        <section className='w-full py-24 lg:py-32 bg-gradient-to-b from-neutral-50 via-white to-neutral-50 border-t border-neutral-100'>
+            <div className='max-w-7xl mx-auto px-6 sm:px-8 lg:px-12'>
+                {/* SECTION HEADER */}
+                <div className='text-center mb-20'>
+                    <span className='text-xs font-semibold tracking-[0.25em] uppercase text-amber-600 bg-amber-500/10 px-3 py-1 rounded-full'>
+                        Dëshmi & Arritje
+                    </span>
+                    <h2 className='text-3xl sm:text-4xl md:text-5xl font-serif font-medium tracking-tight text-neutral-900 mt-6 max-w-2xl mx-auto'>
                         Çfarë Thonë Klientët Tanë
                     </h2>
-                    <p className='mt-4 text-[#6b6b6b] max-w-2xl mx-auto'>
-                        Besimi i klientëve është prova më e fortë e cilësisë së
-                        punës sonë.
+                    <div className='w-12 h-[1px] bg-neutral-200 mx-auto mt-6' />
+                    <p className='mt-4 text-neutral-500 text-base font-light max-w-xl mx-auto'>
+                        Besimi i bashkëpunëtorëve dhe klientëve tanë është
+                        dëshmia më e pastër e përkushtimit tonë ndaj
+                        përsosmërisë.
                     </p>
                 </div>
 
-                {/* TESTIMONIALS */}
-                <div className='grid md:grid-cols-3 gap-6'>
+                {/* TESTIMONIALS GRID */}
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-24'>
                     {testimonials.map((item, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 40 }}
+                            initial={{ opacity: 0, y: 25 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.15 }}
                             viewport={{ once: true }}
-                            className='bg-white/80 backdrop-blur-md border border-[#eee] rounded-2xl p-6 shadow-sm hover:shadow-2xl transition'
+                            transition={{
+                                duration: 0.6,
+                                delay: index * 0.15,
+                                ease: [0.21, 0.47, 0.32, 0.98],
+                            }}
+                            className='bg-white border border-neutral-200/60 rounded-xl p-8 relative flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 group'
                         >
-                            {/* Stars */}
-                            <div className='flex mb-3'>
-                                {[...Array(5)].map((_, i) => (
-                                    <Star
-                                        key={i}
-                                        className='w-4 h-4 text-[#ff6b00] fill-[#ff6b00]'
+                            <div>
+                                {/* Visual Accent/Quote Mark */}
+                                <div className='absolute top-6 right-8 text-neutral-100 group-hover:text-amber-500/10 transition-colors duration-300 pointer-events-none'>
+                                    <Quote
+                                        size={40}
+                                        fill='currentColor'
+                                        stroke='none'
                                     />
-                                ))}
+                                </div>
+
+                                {/* Stars Component */}
+                                <div className='flex gap-1 mb-5'>
+                                    {[...Array(5)].map((_, i) => (
+                                        <Star
+                                            key={i}
+                                            className='w-3.5 h-3.5 text-amber-500 fill-amber-500'
+                                            strokeWidth={1}
+                                        />
+                                    ))}
+                                </div>
+
+                                <p className='text-neutral-600 text-sm font-light leading-relaxed mb-6 italic'>
+                                    “{item.text}”
+                                </p>
                             </div>
 
-                            <p className='text-[#4a4a4a] text-sm leading-relaxed mb-4'>
-                                “{item.text}”
-                            </p>
-
-                            <h4 className='font-semibold text-[#1a1a1a]'>
-                                {item.name}
-                            </h4>
+                            <div className='border-t border-neutral-100 pt-4 mt-auto'>
+                                <h4 className='font-medium text-sm text-neutral-900 tracking-wide'>
+                                    {item.name}
+                                </h4>
+                                <p className='text-neutral-400 text-xs font-light mt-0.5'>
+                                    {item.role}
+                                </p>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
-                {/* STATS */}
-                <div className='grid grid-cols-2 md:grid-cols-4 gap-10 text-center mt-20'>
-                    {stats.map((item, index) => (
-                        <div key={index}>
-                            <Counter
-                                value={item.value}
-                                suffix={item.suffix}
-                            />
-                            <p className='mt-2 text-[#6b6b6b] text-sm'>
-                                {item.label}
-                            </p>
-                        </div>
-                    ))}
+
+                {/* STATS COUNTDOWN PLATFORM */}
+                <div className='bg-neutral-950 text-white rounded-2xl p-10 md:p-14 border border-neutral-900 shadow-2xl relative overflow-hidden'>
+                    {/* Subtle geometry backing */}
+                    <div className='absolute -right-16 -bottom-16 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none' />
+
+                    <div className='grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-6 text-center relative z-10'>
+                        {stats.map((item, index) => (
+                            <div
+                                key={index}
+                                className='flex flex-col space-y-2 '
+                            >
+                                <Counter
+                                    value={item.value}
+                                    suffix={item.suffix}
+                                />
+                                <p className='text-neutral-400 text-xs md:text-sm font-light tracking-wide uppercase max-w-[160px] mx-auto leading-snug'>
+                                    {item.label}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

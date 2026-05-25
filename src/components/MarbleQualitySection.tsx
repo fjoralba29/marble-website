@@ -1,75 +1,90 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Gem, Clock, Sparkles } from "lucide-react";
+import { ShieldCheck, Gem, Clock, Sparkles, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const features = [
     {
         icon: Gem,
         title: "Cilësi e Lartë",
-        desc: "Materiale të përzgjedhura nga burime të certifikuara me standarde premium.",
+        desc: "Bllqe mermeri të përzgjedhura direkt nga guroret më të njohura europiane me certifikim origjine.",
     },
     {
         icon: Clock,
         title: "Jetëgjatësi Maksimale",
-        desc: "Rezistente ndaj konsumit, lagështisë dhe temperaturave për përdorim afatgjatë.",
+        desc: "Strukturë kompakte me porozitet minimal, absolutisht rezistente ndaj lagështisë, konsumit dhe kohës.",
     },
     {
         icon: ShieldCheck,
         title: "Rezistencë & Qëndrueshmëri",
-        desc: "Sipërfaqe që ruajnë pamjen elegante dhe nuk dëmtohen lehtë.",
+        desc: "Trajtim me mbrojtës sipërfaqësor premium që parandalon njollat dhe dëmtimet strukturore.",
     },
     {
         icon: Sparkles,
         title: "Përpunim Perfekt",
-        desc: "Precizion maksimal në prerje dhe përfundime për një rezultat flawless.",
+        desc: "Prerje me teknologji CNC të saktësisë milimetrike dhe lustrim artizanal për shkëlqim pasqyror.",
     },
 ];
 
 export default function MarbleQualitySection() {
     return (
-        <section className='w-full py-20 bg-gradient-to-b from-[#fdfaf6] to-[#f3ede7]'>
-            <div className='max-w-7xl mx-auto px-6'>
-                {/* Top subtle divider */}
-                <div className='h-px bg-gradient-to-r from-transparent via-[#ff6b00]/40 to-transparent mb-12' />
+        <section className='w-full py-24 lg:py-32 bg-gradient-to-b from-neutral-50 via-[#FAF8F5] to-neutral-50 relative overflow-hidden'>
+            {/* Decorative background stone grain line */}
+            <div className='absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]' />
 
-                {/* Header */}
-                <div className='text-center mb-16'>
-                    <h2 className='text-4xl md:text-5xl font-semibold tracking-tight text-[#1a1a1a]'>
-                        Materiale Premium. Rezultate që zgjasin një jetë.
+            <div className='max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10'>
+                {/* Subtle Section Divider Label */}
+                <div className='flex flex-col items-center mb-6'>
+                    <span className='text-xs font-semibold tracking-[0.25em] uppercase text-amber-600 bg-amber-500/10 px-3 py-1 rounded-full'>
+                        Standardi Beqaraj
+                    </span>
+                    <div className='w-12 h-[1px] bg-neutral-200 mt-4' />
+                </div>
+
+                {/* Section Header */}
+                <div className='text-center mb-20'>
+                    <h2 className='text-3xl sm:text-4xl md:text-5xl font-serif font-medium tracking-tight text-neutral-900 max-w-4xl mx-auto leading-[1.15]'>
+                        Materiale Premium. Rezultate që sfidojnë kohën.
                     </h2>
-                    <p className='mt-4 text-[#6b6b6b] max-w-2xl mx-auto'>
-                        Zgjedhim dhe përpunojmë mermer dhe gur natyral me
-                        standardet më të larta, për projekte që ruajnë vlerën
-                        dhe elegancën me kalimin e kohës.
+                    <p className='mt-5 text-neutral-500 text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed'>
+                        Zgjedhim dhe përpunojmë gur natyral me teknologjinë më
+                        të avancuar, duke garantuar sipërfaqe që ruajnë vlerën,
+                        strukturën dhe elegancën e tyre përgjithmonë.
                     </p>
                 </div>
 
-                {/* Features */}
-                <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
+                {/* Features Grid Layout */}
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8'>
                     {features.map((item, index) => {
                         const Icon = item.icon;
                         return (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 40 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
                                 transition={{
-                                    duration: 0.4,
-                                    delay: index * 0.1,
+                                    duration: 0.5,
+                                    delay: index * 0.12,
+                                    ease: [0.21, 0.47, 0.32, 0.98],
                                 }}
-                                viewport={{ once: true }}
-                                className='bg-white/80 backdrop-blur-md border border-[#eee] rounded-2xl p-6 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group'
+                                whileHover={{ y: -6 }}
+                                className='bg-white/70 backdrop-blur-md border border-neutral-200/60 rounded-xl p-8 shadow-sm hover:shadow-xl hover:bg-white hover:border-neutral-300/80 transition-all duration-300 group'
                             >
-                                <div className='w-12 h-12 flex items-center justify-center rounded-xl bg-[#fff3e8] mb-4 group-hover:bg-[#ff6b00] transition'>
-                                    <Icon className='w-6 h-6 text-[#ff6b00] group-hover:text-white transition' />
+                                {/* Icon Container */}
+                                <div className='w-12 h-12 flex items-center justify-center rounded-lg bg-neutral-50 border border-neutral-100 mb-6 group-hover:bg-amber-500 group-hover:border-amber-500 transition-all duration-300 shadow-sm'>
+                                    <Icon
+                                        className='w-5 h-5 text-neutral-800 group-hover:text-neutral-950 transition-colors duration-300'
+                                        strokeWidth={1.5}
+                                    />
                                 </div>
 
-                                <h3 className='text-lg font-semibold text-[#1a1a1a] mb-2'>
+                                <h3 className='text-lg font-medium text-neutral-900 mb-3 tracking-wide'>
                                     {item.title}
                                 </h3>
 
-                                <p className='text-[#6b6b6b] text-sm leading-relaxed'>
+                                <p className='text-neutral-500 text-sm font-light leading-relaxed'>
                                     {item.desc}
                                 </p>
                             </motion.div>
@@ -77,13 +92,24 @@ export default function MarbleQualitySection() {
                     })}
                 </div>
 
-                {/* CTA */}
-                <div className='mt-16 flex justify-center'>
-                    <a href='/contact'>
-                        <button className='px-8 py-3 bg-[#ff6b00] text-white rounded-full hover:bg-[#e65c00] transition-all duration-300 shadow-md hover:shadow-lg'>
-                            Kontakto për Konsultim Falas
-                        </button>
-                    </a>
+                {/* Premium Call To Action */}
+                <div className='mt-20 flex flex-col items-center justify-center gap-4'>
+                    <Link to='/contact'>
+                        <motion.button
+                            whileTap={{ scale: 0.98 }}
+                            className='px-8 py-4 bg-neutral-950 text-white hover:bg-neutral-900 text-sm font-medium tracking-wider uppercase rounded-md transition-all duration-300 shadow-md hover:shadow-xl inline-flex items-center gap-3 group'
+                        >
+                            Konsultoni Projektin Tuaj Falas
+                            <ArrowRight
+                                size={16}
+                                className='text-amber-400 group-hover:translate-x-1 transition-transform'
+                            />
+                        </motion.button>
+                    </Link>
+                    <p className='text-xs text-neutral-400 font-light'>
+                        Pa asnjë detyrim — analizë e detajuar e planeve dhe
+                        materialeve.
+                    </p>
                 </div>
             </div>
         </section>
