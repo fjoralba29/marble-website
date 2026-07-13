@@ -129,27 +129,25 @@ export default function RoomDesignPage() {
         countertop: "Countertop",
     };
 
-    const islandPaths = [
-        {
-            key: "islandTop",
-            d: "M654 637.5L311.5 569L853.5 486L1101.5 504.5L654 637.5Z",
-        },
-        {
-            key: "baseCabinet",
-            d: "M654.75 638L310.5 569L305.75 903H654.75V638Z",
-        },
-        {
-            key: "islandFront",
-            d: "M1101.5 504L655 637.5V661.5L1101.5 519.5V504Z",
-        },
-        {
-            key: "islandLeg",
-            d: "M688.75 651.5L655.75 660.401V902.5H688.75V651.5Z",
-        },
-    ];
+    // const islandPaths = [
 
-    const backsplashPath = "M622 452V361.5L3.5 347V486L622 452Z";
+    // const islandPaths =
+    //     "M654 637.5L311.5 569L853.5 486L1101.5 504.5L654 637.5Z " +
+    //     "M654.75 638L310.5 569L305.75 903H654.75V638Z " +
+    //     "M1101.5 504L655 637.5V661.5L1101.5 519.5V504Z " +
+    //     "M688.75 651.5L655.75 660.401V902.5H688.75V651.5Z";
 
+    const islandPaths =
+        // top
+        "M654 637.5L311.5 569L853.5 486L1101.5 504.5L654 637.5Z " +
+        // front cabinet (extend right by 1px)
+        "M654.75 638L310.5 569L305.75 903H656V638Z " +
+        // side face (move left by 1px)
+        "M1101.5 504L654 637.5V661.5L1101.5 519.5V504Z " +
+        // leg
+        "M688.75 651.5L655.75 660.401V902.5H688.75V651.5Z";
+
+    const backsplashPath = "M610 13L3 0L0 171.5L610 113V13Z";
     const countertopPath = "M605 0L0 57.5V95L12.5 101.5L705.5 20V7.5L605 0Z";
 
     return (
@@ -298,8 +296,8 @@ export default function RoomDesignPage() {
                                     <pattern
                                         id='backsplashPattern'
                                         patternUnits='userSpaceOnUse'
-                                        width='700'
-                                        height='703'
+                                        width='610'
+                                        height='172'
                                     >
                                         <image
                                             href={
@@ -309,10 +307,9 @@ export default function RoomDesignPage() {
                                             crossOrigin='anonymous'
                                             x='0'
                                             y='0'
-                                            width='700'
-                                            height='703'
+                                            width='610'
+                                            height='172'
                                             preserveAspectRatio='xMidYMid slice'
-                                            transform='rotate(-15 500 451.5)'
                                         />
                                     </pattern>
 
@@ -341,7 +338,7 @@ export default function RoomDesignPage() {
 
                                 {/* MARBLE LAYERS */}
                                 <g>
-                                    {islandPaths.map(({ key, d }) => (
+                                    {/* {islandPaths.map(({ key, d }) => (
                                         <path
                                             key={key}
                                             d={d}
@@ -355,10 +352,24 @@ export default function RoomDesignPage() {
                                                 opacity: 0.9,
                                             }}
                                         />
-                                    ))}
+                                    ))} */}
+
+                                    <path
+                                        d={islandPaths}
+                                        fill={
+                                            selectedMaterials.island
+                                                ? "url(#islandMarblePattern)"
+                                                : "#F4F4F5"
+                                        }
+                                        style={{
+                                            mixBlendMode: "multiply",
+                                            opacity: 0.9,
+                                        }}
+                                    />
 
                                     <path
                                         d={backsplashPath}
+                                        transform='translate(8 350)'
                                         fill={
                                             selectedMaterials.backsplash
                                                 ? "url(#backsplashPattern)"
@@ -402,7 +413,7 @@ export default function RoomDesignPage() {
                                     fill='transparent'
                                     style={{ cursor: "pointer" }}
                                 >
-                                    {islandPaths.map(({ key, d }) => (
+                                    {/* {islandPaths.map(({ key, d }) => (
                                         <path
                                             key={`hit-${key}`}
                                             d={d}
@@ -411,10 +422,19 @@ export default function RoomDesignPage() {
                                             }
                                             className='hover:fill-black/5 transition-colors duration-200'
                                         />
-                                    ))}
+                                    ))} */}
+
+                                    <path
+                                        d={islandPaths}
+                                        onClick={() =>
+                                            handleSurfaceClick("island")
+                                        }
+                                        className='hover:fill-black/5 transition-colors duration-200'
+                                    />
 
                                     <path
                                         d={backsplashPath}
+                                        transform='translate(0 347)'
                                         onClick={() =>
                                             handleSurfaceClick("backsplash")
                                         }
